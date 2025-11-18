@@ -3,166 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Project...</title>
+    <title>Loading Project... - Nobe Mol</title>
 
-    <!-- Fira Code Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- your entire stylesheet is unchanged --- */
+        body { margin: 0; font-family: 'Fira Code', monospace; background: #f8fafc; color: #1a202c; min-height: 100vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.06) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(76, 110, 245, 0.07) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+        .project-detail-container { max-width: 1440px; margin: 90px auto 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr; gap: 70px; }
+        .project-main { background: white; padding: 55px; border-radius: 32px; box-shadow: 0 25px 80px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.04); }
+        #project-title { font-size: 3.8rem; font-weight: 700; margin-bottom: 20px; background: linear-gradient(90deg, #4c6ef5, #748ffc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .project-main h3 { font-size: 1.85rem; margin: 50px 0 20px; color: #1a202c; position: relative; padding-left: 28px; font-weight: 600; }
+        .project-main h3::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 36px; background: linear-gradient(to bottom, #4c6ef5, #89b4fa); border-radius: 6px; }
+        #project-description, #project-information { font-size: 1.22rem; line-height: 1.9; color: #2d3748; margin-bottom: 16px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 14px; margin: 24px 0; }
+        .tag, .language-tag { padding: 11px 24px; border-radius: 50px; font-weight: 600; font-size: 0.98rem; transition: all 0.3s; }
+        .tag { background: #dbeafe; color: #1e40af; }
+        .language-tag { background: #f3e8ff; color: #6b21a8; }
+        .tag:hover, .language-tag:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        #image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin: 45px 0; }
+        .project-image { width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); transition: transform 0.4s; }
+        .project-image:hover { transform: translateY(-12px); }
+        #feature-list { background: #f8fafc; padding: 32px 36px; border-radius: 24px; border-left: 6px solid #4c6ef5; margin: 50px 0; font-size: 1.1rem; line-height: 1.8; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        #feature-list li { margin: 18px 0; padding-left: 4px; color: #1a202c; list-style: none; position: relative; }
+        #feature-list li::before { content: "•"; color: #4c6ef5; font-weight: bold; font-size: 1.6em; position: absolute; left: -24px; top: -6px; }
+        .btn-small { display: inline-block; margin-top: 60px; padding: 18px 42px; background: linear-gradient(135deg, #4c6ef5, #748ffc); color: white; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 15px 40px rgba(76,110,245,0.4); transition: all 0.4s; }
+        .btn-small:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(76,110,245,0.5); }
+        .project-sidebar { background: #0d1117; border-radius: 32px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); border: 1px solid #30363d; margin: 40px 40px 80px 40px; max-width: 1400px; }
+        .project-sidebar h3 { background: #161b22; color: #58a6ff; padding: 28px 40px; margin: 0; font-size: 1.8rem; font-weight: 600; border-bottom: 1px solid #30363d; }
+        .code-box pre, .code-box span { color: #ffffff !important; background: #0d1117 !important; }
+        .code-box pre { margin: 0 !important; padding: 44px 40px !important; font-family: 'Fira Code', monospace; font-size: 16.5px; line-height: 1.85; overflow-x: auto; counter-reset: line; }
+        .code-box span { display: block; padding-left: 100px; position: relative; counter-increment: line; }
+        .code-box span::before { content: counter(line); position: absolute; left: 0; width: 80px; text-align: right; color: #6e7681; padding-right: 24px; user-select: none; font-variant-numeric: tabular-nums; }
+        .loading-screen { text-align: center; padding: 160px 20px; font-size: 1.7rem; color: #64748b; }
+        .loading-screen strong { background: linear-gradient(90deg, #4c6ef5, #748ffc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+    </style>
 </head>
 <body>
 
-<header>
-    <nav class="navbar">
-        <h1 class="logo">Nobe Mol</h1>
-        <ul>
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="index.html#projects">Projects</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="loading-screen">
+    Loading project <strong id="loading-title">…</strong>
+</div>
 
-<section class="project-detail-container">
+<div class="project-detail-container" id="project-content" style="display:none;">
     <div class="project-main">
-        <h2 id="project-title">Loading...</h2>
+        <h2 id="project-title">Loading…</h2>
 
         <h3>Description</h3>
-        <p id="project-description">Please wait...</p>
+        <p id="project-description">Please wait while we load this project...</p>
 
-        <h3>Languages</h3>
+        <h3>Information</h3>
+        <div id="project-information"></div>
+
+        <h3>Languages & Frameworks</h3>
         <div id="language-container" class="tags"></div>
 
         <h3>Tags</h3>
         <div id="tag-container" class="tags"></div>
 
-        <h3>Gallery / Media</h3>
+        <h3>Gallery</h3>
         <div id="image-gallery"></div>
 
-        <h3>Features</h3>
+        <h3>Key Features</h3>
         <ul id="feature-list"></ul>
 
-        <a href="index.html" class="btn-small">Back to Projects</a>
+        <a href="index.html#projects" class="btn-small">Back to Projects</a>
     </div>
 
     <div class="project-sidebar">
-        <h3>Code Snippet</h3>
+        <h3 id="code-spotlight-title">Code Spotlight</h3>
         <pre id="code-snippet" class="code-box"><span></span></pre>
     </div>
-</section>
+</div>
 
 <script>
-    // Get project ID from URL: project.html?id=assembly-sorting
-    const urlParams = new URLSearchParams(window.location.search);
-    const projectId = urlParams.get('id');
+const params = new URLSearchParams(window.location.search);
+const projectId = params.get("id");
+const loadingTitle = document.getElementById("loading-title");
 
-    if (!projectId) {
-        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px; color:#aaa'>No project specified. Use: project.html?id=your-id</h1>";
-        throw new Error("No project ID");
-    }
-
-    fetch('projects.json')
-        .then(res => {
-            if (!res.ok) throw new Error("projects.json not found");
-            return res.json();
-        })
-        .then(projects => {
-            const project = projects.find(p => p.id === projectId);
-
-            if (!project) {
-                document.getElementById("project-title").textContent = "Project Not Found";
-                document.getElementById("project-description").textContent = `No project with id "${projectId}"`;
-                return;
-            }
-
-            // Apply all data
-            document.title = project.title + " - Nobe Mol";
-            document.getElementById("project-title").textContent = project.title;
-            document.getElementById("project-description").textContent = project.description || "No description.";
-
-            // Languages
-            const langContainer = document.getElementById("language-container");
-            langContainer.innerHTML = "";
-            (project.languages || []).forEach(lang => {
-                const span = document.createElement("span");
-                span.className = "tag language-tag";
-                span.textContent = lang;
-                langContainer.appendChild(span);
-            });
-
-            // Tags
-            const tagContainer = document.getElementById("tag-container");
-            tagContainer.innerHTML = "";
-            (project.tags || []).forEach(tag => {
-                const span = document.createElement("span");
-                span.className = "tag";
-                span.textContent = tag;
-                tagContainer.appendChild(span);
-            });
-
-            // Features
-            const featureList = document.getElementById("feature-list");
-            featureList.innerHTML = "";
-            (project.features || []).forEach(f => {
-                const li = document.createElement("li");
-                li.textContent = f;
-                featureList.appendChild(li);
-            });
-
-            // Images
-            const gallery = document.getElementById("image-gallery");
-            gallery.innerHTML = "";
-            (project.images || []).forEach(src => {
-                const img = document.createElement("img");
-                img.src = src;
-                img.alt = project.title;
-                img.className = "project-image";
-                img.loading = "lazy";
-                gallery.appendChild(img);
-            });
-
-            // Code Snippet with line numbers
-            const codeBox = document.getElementById("code-snippet");
-            if (project.code && project.code.length > 0) {
-                const lines = Array.isArray(project.code) ? project.code : project.code.split('\n');
-                codeBox.innerHTML = lines.map(line => {
-                    const escaped = line
-                        .replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                    return `<span>${escaped || '&nbsp;'}</span>`;
-                }).join('');
-            } else {
-                codeBox.innerHTML = '<span style="color:#858585; font-style:italic; padding-left:60px;">No code snippet available</span>';
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            document.body.innerHTML = `<h1 style="text-align:center; color:#f66; margin-top:100px">
-                Error loading project<br><small>${err.message}</small>
-            </h1>`;
-        });
-        
-const codeBox = document.getElementById("code-snippet");
-
-if (project.code && project.code.length > 0) {
-    const lines = Array.isArray(project.code) ? project.code : project.code.split('\n');
-
-    codeBox.innerHTML = '<pre>' + lines.map(line => {
-        const escaped = line
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/ /g, '&nbsp;')
-            .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-        return `<span>${escaped || '&nbsp;'}</span>`;
-    }).join('') + '</pre>';
-} else {
-    codeBox.innerHTML = '<pre><span style="color:#8b949e; padding-left:68px;">No code snippet available</span></pre>';
+if (!projectId) {
+    loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
+    throw new Error("Project ID missing");
 }
+
+// Pretty loading title
+loadingTitle.textContent = projectId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+// Load projects.json instead of manifest + individual files
+fetch("projects.json")
+    .then(r => r.json())
+    .then(projects => {
+        const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
+        if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
+
+        document.querySelector(".loading-screen").remove();
+        document.getElementById("project-content").style.display = "block";
+
+        document.title = `${project.title} - Nobe Mol`;
+        document.getElementById("project-title").textContent = project.title;
+        document.getElementById("project-description").textContent = project.description || "No description provided.";
+
+        // Render multiple paragraphs from information array
+        const infoContainer = document.getElementById("project-information");
+        infoContainer.innerHTML = "";
+        if (Array.isArray(project.information)) {
+            project.information.forEach(info => {
+                const p = document.createElement("p");
+                p.textContent = info;
+                infoContainer.appendChild(p);
+            });
+        }
+
+        const sections = [
+            { id: "language-container", key: "languages", className: "language-tag" },
+            { id: "tag-container", key: "tags", className: "tag" }
+        ];
+
+        sections.forEach(({ id, key, className }) => {
+            const container = document.getElementById(id);
+            container.innerHTML = "";
+            (project[key] || []).forEach(item => {
+                const span = document.createElement("span");
+                span.className = className;
+                span.textContent = item;
+                container.appendChild(span);
+            });
+        });
+
+        const featureList = document.getElementById("feature-list");
+        featureList.innerHTML = "";
+        (project.features || []).forEach(f => {
+            const li = document.createElement("li");
+            li.textContent = f;
+            featureList.appendChild(li);
+        });
+
+        const gallery = document.getElementById("image-gallery");
+        gallery.innerHTML = "";
+        (project.images || []).forEach(src => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = project.title;
+            img.className = "project-image";
+            img.loading = "lazy";
+            gallery.appendChild(img);
+        });
+
+        const codeBox = document.getElementById("code-snippet");
+        if (project.code && project.code.length) {
+            const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
+            codeBox.innerHTML = lines.map(line => {
+                const escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                return `<span>${escaped || "&nbsp;"}</span>`;
+            }).join("");
+        } else {
+            codeBox.innerHTML = '<span style="color:#8b949e;padding-left:100px;font-style:italic;">No code snippet available</span>';
+        }
+
+        if (project.codeCaption) {
+            document.getElementById("code-spotlight-title").textContent =
+                `Code Spotlight – ${project.codeCaption}`;
+        }
+    })
+    .catch(err => {
+        document.querySelector(".loading-screen").innerHTML =
+            `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
+    });
 </script>
 
 </body>
