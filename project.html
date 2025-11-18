@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Project...</title>
+
+    <!-- Fira Code Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <h1 class="logo">Nobe Mol</h1>
+        <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="project-detail-container">
+    <div class="project-main">
+        <h2 id="project-title">Loading...</h2>
+
+        <h3>Description</h3>
+        <p id="project-description">Please wait...</p>
+
+        <h3>Languages</h3>
+        <div id="language-container" class="tags"></div>
+
+        <h3>Tags</h3>
+        <div id="tag-container" class="tags"></div>
+
+        <h3>Gallery / Media</h3>
+        <div id="image-gallery"></div>
+
+        <h3>Features</h3>
+        <ul id="feature-list"></ul>
+
+        <a href="index.html" class="btn-small">Back to Projects</a>
+    </div>
+
+    <div class="project-sidebar">
+        <h3>Code Snippet</h3>
+        <pre id="code-snippet" class="code-box"><span></span></pre>
+    </div>
+</section>
+
+<script>
+    // Get project ID from URL: project.html?id=assembly-sorting
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+
+    if (!projectId) {
+        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px; color:#aaa'>No project specified. Use: project.html?id=your-id</h1>";
+        throw new Error("No project ID");
+    }
+
+    fetch('projects.json')
+        .then(res => {
+            if (!res.ok) throw new Error("projects.json not found");
+            return res.json();
+        })
+        .then(projects => {
+            const project = projects.find(p => p.id === projectId);
+
+            if (!project) {
+                document.getElementById("project-title").textContent = "Project Not Found";
+                document.getElementById("project-description").textContent = `No project with id "${projectId}"`;
+                return;
+            }
+
+            // Apply all data
+            document.title = project.title + " - Nobe Mol";
+            document.getElementById("project-title").textContent = project.title;
+            document.getElementById("project-description").textContent = project.description || "No description.";
+
+            // Languages
+            const langContainer = document.getElementById("language-container");
+            langContainer.innerHTML = "";
+            (project.languages || []).forEach(lang => {
+                const span = document.createElement("span");
+                span.className = "tag language-tag";
+                span.textContent = lang;
+                langContainer.appendChild(span);
+            });
+
+            // Tags
+            const tagContainer = document.getElementById("tag-container");
+            tagContainer.innerHTML = "";
+            (project.tags || []).forEach(tag => {
+                const span = document.createElement("span");
+                span.className = "tag";
+                span.textContent = tag;
+                tagContainer.appendChild(span);
+            });
+
+            // Features
+            const featureList = document.getElementById("feature-list");
+            featureList.innerHTML = "";
+            (project.features || []).forEach(f => {
+                const li = document.createElement("li");
+                li.textContent = f;
+                featureList.appendChild(li);
+            });
+
+            // Images
+            const gallery = document.getElementById("image-gallery");
+            gallery.innerHTML = "";
+            (project.images || []).forEach(src => {
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = project.title;
+                img.className = "project-image";
+                img.loading = "lazy";
+                gallery.appendChild(img);
+            });
+
+            // Code Snippet with line numbers
+            const codeBox = document.getElementById("code-snippet");
+            if (project.code && project.code.length > 0) {
+                const lines = Array.isArray(project.code) ? project.code : project.code.split('\n');
+                codeBox.innerHTML = lines.map(line => {
+                    const escaped = line
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                    return `<span>${escaped || '&nbsp;'}</span>`;
+                }).join('');
+            } else {
+                codeBox.innerHTML = '<span style="color:#858585; font-style:italic; padding-left:60px;">No code snippet available</span>';
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            document.body.innerHTML = `<h1 style="text-align:center; color:#f66; margin-top:100px">
+                Error loading project<br><small>${err.message}</small>
+            </h1>`;
+        });
+        
+const codeBox = document.getElementById("code-snippet");
+
+if (project.code && project.code.length > 0) {
+    const lines = Array.isArray(project.code) ? project.code : project.code.split('\n');
+
+    codeBox.innerHTML = '<pre>' + lines.map(line => {
+        const escaped = line
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/ /g, '&nbsp;')
+            .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        return `<span>${escaped || '&nbsp;'}</span>`;
+    }).join('') + '</pre>';
+} else {
+    codeBox.innerHTML = '<pre><span style="color:#8b949e; padding-left:68px;">No code snippet available</span></pre>';
+}
+</script>
+
+</body>
+</html>
