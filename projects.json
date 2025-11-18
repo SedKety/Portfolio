@@ -1,6 +1,7 @@
 [
 
     {
+        "githublink": "https://github.com/SedKety/ECS",
         "thumbnail": "../Images/ECS/ECS_Thumbnail.png",
         "id": "ecs-library",
         "title": "ECS",
@@ -74,6 +75,7 @@
     },
 
     {
+        "githublink": "https://github.com/SedKety/LASM",
         "thumbnail" : "../Images/Assembly/Bubble_Sort.png",
         "id": "assembly-sorting",
         "title": "Sorting Algorithms in Assembly",
@@ -152,6 +154,7 @@
     },
 
     {
+        "githublink": "https://github.com/SedKety/Renderer",
         "thumbnail": "../Images/PPM/PPM_Renderer_Thumbnail.png",
         "id": "ppm-renderer",
         "title": "PPM Renderer",
@@ -307,6 +310,7 @@
     },
 
     {
+        "githublink": "https://github.com/SedKety/Ketopia",
   "thumbnail": "Images/Ketopia/Big_Island_Showcase.png",
   "id": "ketopia",
   "title": "Ketopia",
@@ -320,7 +324,7 @@
     "Additionally, i learned to use enum's and scriptable objects to make it as easy as possible for my artists to mess with."
 ],
   "languages": ["C#", "Unity"],
-  "tags": ["Game", "3D", "Exploration", "Survival", "Team", "World Generation", "Procedural generation"],
+  "tags": ["Game", "3D", "Exploration", "Survival", "Team", "World Generation", "Procedural Generation"],
   "features": [
     "Procedurally generated worlds",
     "Lots of different biomes with respective islands and flora",
@@ -487,7 +491,7 @@
         "id": "wizcape",
         "title": "Wizcape",
         "description": "3D dungeon crawler game made in Unity.",
-
+         "githublink": "https://github.com/SedKety/Wiscape",
         "information": [
            "After a lecture at school we were introduced to the concept of fuzzy logic.",
            "I found it really interesting and wanted to try and implement it in a game.",
@@ -522,12 +526,111 @@
 ],
         "codeCaption": "Nothing for now"
     },
+
     {
-        "thumbnail": "",
+        "githublink": "https://github.com/FirePixel8422/TerraTopia",
+        "thumbnail": "../Images/Terratopia/concept.png",
         "id": "terratopia",
         "title": "Terratopia",
         "languages":["C#", "Unity", "Netcode"],
-        "tags": ["Procedural Generation","World Generation", "Team", "Multiplayer", "3D", "Game"]
+        "tags": ["Procedural Generation","World Generation", "Team", "Multiplayer", "3D", "Game", "Exploration"],
+        "images": ["../Images/Terratopia/TerratopiaTrailer.mp4", "../Images/Terratopia/concept.png"],
+        "features": [
+            "Procedurally generated worlds", 
+            "Unity netcode allowing for up to 4 players",
+            "Customizable player skins",
+            "Online multiplayer",
+            "Turn based combat/exploration/building"
+                    ],
+        
+        "description": "Online multiplayer turnbased exploration game inspired by Polytopia",
+        "information": [
+            "This game is heavily inspired by the game Polytopia, a game i grew up with.",
+            "It is an turn based combat game where players train units, place structures and take over cities.",
+            "I had a chat about it with a fellow programmer and he seemed as excited as me to recreate it",
+            "So we did, our own spin on Polytopia. our twist? Making it 3D, so the terrain could make movement/combat harder.",
+            "This project has tought me alot, from learning builder patterns, to making procedurally generated worlds.",
+            "Im gratefull for the opportunity, and the team that got me to create this game."
+        ],
+        "codeCaption": "Tilegenerator - Makes the map baseplate",
+        "code": [
+    "using System.Collections;",
+    "using System.Collections.Generic;",
+    "using System.Linq;",
+    "using Unity.Burst;",
+    "using UnityEngine;",
+    "",
+    "//This struct is used to generate a grid within its constructor.",
+    "[BurstCompile]",
+    "public struct TileGenerator",
+    "{",
+    "    public TileGenerator(NoiseData noiseData, int width, int length, int seed, Transform parent, GameObject cloudPrefab, out Dictionary<Vector2, TileBase> tilesToReturn, out Dictionary<Vector2, GameObject> cloudsToReturn)",
+    "    {",
+    "        tilesToReturn = new Dictionary<Vector2, TileBase>();",
+    "        cloudsToReturn = new Dictionary<Vector2, GameObject>();",
+    "",
+    "        var tileHeightMultiplier = noiseData.tileHeightMultiplier;",
+    "        var tileHeight = 0f;",
+    "",
+    "        //Generates data for each tile",
+    "        var tiles = noiseData.GetTiles(seed, width, length);",
+    "",
+    "        //Instantiates every tile with before-achieved the tile data",
+    "        for (int i = 0; i < tiles.Length; i++)",
+    "        {",
+    "            tileHeight = tiles[i].Item1.constHeight == 0 ? tiles[i].Item3 * tileHeightMultiplier : tiles[i].Item1.constHeight;",
+    "",
+    "            GameObject tileObj = Object.Instantiate(tiles[i].Item1.tileGO, new Vector3(tiles[i].Item2.x, tileHeight, tiles[i].Item2.y), Quaternion.identity, parent);",
+    "            GameObject cloudObj = Object.Instantiate(cloudPrefab, new Vector3(tiles[i].Item2.x, tileHeight, tiles[i].Item2.y), Quaternion.identity, parent);",
+    "",
+    "            TileBase tileBase = tileObj.GetComponent<TileBase>();",
+    "            tileBase.ownedByPlayerTeamId = -1;",
+    "",
+    "            tilesToReturn.Add(tiles[i].Item2, tileBase);",
+    "            cloudsToReturn.Add(tiles[i].Item2, cloudObj);",
+    "",
+    "            if (tilesToReturn.Last().Value.TryGetComponent(out TileBase tile))",
+    "            {",
+    "                tile._perlinHeight = tiles[i].Item3;",
+    "            }",
+    "        }",
+    "    }",
+    "}"
+                ]
 
+    },
+    {
+        "githublink": "https://github.com/SedKety/Pest-Control", 
+        "id": "pest_patrol",
+        "title": "Pest Patrol",
+        "thumbnail": "../Images/Pest_Patrol/Main_Screen.png",
+        "description": "Tower defense game where you act as a pest control agent",
+        "languages": [
+            "C#",
+            "Unity"
+        ],
+        "tags": [
+            "3D",
+            "Game",
+            "Learning",
+            "Team",
+            "Wave Defense"
+        ],
+        "information": [
+            "In pest patrol you create your own path with road-sections.",
+            "This was the first real project where me(and the other programmer) started using OOP",
+            "Additionally we wanted to learn as much as possible, so we made some rules.",
+            "1. No colliders, everything is distance based which makes the game pretty performant.",
+            "2. Integrate OOP as much as possible, example: towers/enemies/structures/roads",
+            "3. Look into alternatives to ienumerator, which we found in async and custom update loops"
+        ],
+        "features": [
+            "Smart targetting towers",
+            "Variety of enemies/towers",
+            "Procedural wave system, can go to infinity. No limits.",
+            "Gamemodes",
+            "Different maps"
+        ],
+        "images": ["../Images/Pest_Patrol/Main_Screen.png", "../Images/Pest_Patrol/Gameplay.png"]
     }
 ]

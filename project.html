@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- your entire stylesheet is unchanged --- */
         body { margin: 0; font-family: 'Fira Code', monospace; background: #f8fafc; color: #1a202c; min-height: 100vh;
             background-image: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.06) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(76, 110, 245, 0.07) 0%, transparent 20%);
             background-attachment: fixed;
@@ -33,7 +32,7 @@
         #feature-list { background: #f8fafc; padding: 32px 36px; border-radius: 24px; border-left: 6px solid #4c6ef5; margin: 50px 0; font-size: 1.1rem; line-height: 1.8; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
         #feature-list li { margin: 18px 0; padding-left: 4px; color: #1a202c; list-style: none; position: relative; }
         #feature-list li::before { content: "•"; color: #4c6ef5; font-weight: bold; font-size: 1.6em; position: absolute; left: -24px; top: -6px; }
-        .btn-small { display: inline-block; margin-top: 60px; padding: 18px 42px; background: linear-gradient(135deg, #4c6ef5, #748ffc); color: white; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 15px 40px rgba(76,110,245,0.4); transition: all 0.4s; }
+        .btn-small { display: inline-block; margin-top: 20px; padding: 18px 42px; background: linear-gradient(135deg, #4c6ef5, #748ffc); color: white; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 15px 40px rgba(76,110,245,0.4); transition: all 0.4s; }
         .btn-small:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(76,110,245,0.5); }
         .project-sidebar { background: #0d1117; border-radius: 32px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); border: 1px solid #30363d; margin: 40px 40px 80px 40px; max-width: 1400px; }
         .project-sidebar h3 { background: #161b22; color: #58a6ff; padding: 28px 40px; margin: 0; font-size: 1.8rem; font-weight: 600; border-bottom: 1px solid #30363d; }
@@ -43,6 +42,9 @@
         .code-box span::before { content: counter(line); position: absolute; left: 0; width: 80px; text-align: right; color: #6e7681; padding-right: 24px; user-select: none; font-variant-numeric: tabular-nums; }
         .loading-screen { text-align: center; padding: 160px 20px; font-size: 1.7rem; color: #64748b; }
         .loading-screen strong { background: linear-gradient(90deg, #4c6ef5, #748ffc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        /* GitHub Button Styling */
+        #github-link { display: none; align-items: center; gap: 10px; }
+        #github-link img { width: 24px; height: 24px; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -74,6 +76,9 @@
         <ul id="feature-list"></ul>
 
         <a href="index.html#projects" class="btn-small">Back to Projects</a>
+        <a id="github-link" href="#" target="_blank" class="btn-small">
+            <img src="Images/Icons/Github.png" alt="GitHub"> View on GitHub
+        </a>
     </div>
 
     <div class="project-sidebar">
@@ -95,7 +100,7 @@ if (!projectId) {
 // Pretty loading title
 loadingTitle.textContent = projectId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
-// Load projects.json instead of manifest + individual files
+// Load projects.json
 fetch("projects.json")
     .then(r => r.json())
     .then(projects => {
@@ -109,7 +114,7 @@ fetch("projects.json")
         document.getElementById("project-title").textContent = project.title;
         document.getElementById("project-description").textContent = project.description || "No description provided.";
 
-        // Render multiple paragraphs from information array
+        // Information paragraphs
         const infoContainer = document.getElementById("project-information");
         infoContainer.innerHTML = "";
         if (Array.isArray(project.information)) {
@@ -120,6 +125,7 @@ fetch("projects.json")
             });
         }
 
+        // Languages & Tags
         const sections = [
             { id: "language-container", key: "languages", className: "language-tag" },
             { id: "tag-container", key: "tags", className: "tag" }
@@ -136,6 +142,7 @@ fetch("projects.json")
             });
         });
 
+        // Features
         const featureList = document.getElementById("feature-list");
         featureList.innerHTML = "";
         (project.features || []).forEach(f => {
@@ -144,17 +151,29 @@ fetch("projects.json")
             featureList.appendChild(li);
         });
 
+        // Gallery (images & videos)
         const gallery = document.getElementById("image-gallery");
         gallery.innerHTML = "";
         (project.images || []).forEach(src => {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = project.title;
-            img.className = "project-image";
-            img.loading = "lazy";
-            gallery.appendChild(img);
+            let element;
+            if (/\.(mp4)$/i.test(src)) {
+                element = document.createElement("video");
+                element.src = src;
+                element.controls = true;
+                element.autoplay = false;
+                element.loop = false;
+                element.muted = true;
+            } else {
+                element = document.createElement("img");
+                element.src = src;
+                element.alt = project.title;
+                element.loading = "lazy";
+            }
+            element.className = "project-image";
+            gallery.appendChild(element);
         });
 
+        // Code snippet
         const codeBox = document.getElementById("code-snippet");
         if (project.code && project.code.length) {
             const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
@@ -170,6 +189,16 @@ fetch("projects.json")
             document.getElementById("code-spotlight-title").textContent =
                 `Code Spotlight – ${project.codeCaption}`;
         }
+
+        // GitHub link
+        const githubLink = document.getElementById("github-link");
+        if (project.githublink) {
+            githubLink.href = project.githublink;
+            githubLink.style.display = "inline-flex";
+        } else {
+            githubLink.style.display = "none";
+        }
+
     })
     .catch(err => {
         document.querySelector(".loading-screen").innerHTML =
