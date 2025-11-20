@@ -18,16 +18,7 @@
 
 html, body {
   height: 100%;
-  overflow-x: hidden; 
-}
-/* Hide scrollbar without disabling scroll */
-body {
-  scrollbar-width: none;        /* Firefox */
-}
-
-/* Chrome, Edge, Safari */
-body::-webkit-scrollbar {
-  display: none;
+  overflow-x: hidden;
 }
 
 
