@@ -329,4 +329,12 @@ footer {
   color: #666;
   font-size: 0.95rem;
 }
-   
+   /* Hide scrollbar (Chrome, Edge, Safari) */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar (Firefox) */
+body {
+  scrollbar-width: none;
+}
