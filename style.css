@@ -2,7 +2,6 @@
 /* GLOBAL & TYPOGRAPHY                           */
 /* ============================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -24,7 +23,6 @@ body {
     padding: 24px 48px;
     background: rgba(26, 26, 46, 0.85);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     color: #fff;
     position: sticky;
     top: 0;
@@ -42,12 +40,7 @@ body {
     letter-spacing: -0.5px;
 }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 40px;
-}
-
+.navbar ul { list-style: none; display: flex; gap: 40px; }
 .navbar a {
     color: #cdd6f4;
     text-decoration: none;
@@ -56,29 +49,15 @@ body {
     position: relative;
     transition: all 0.3s ease;
 }
-
 .navbar a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -8px;
-    left: 50%;
-    background: #89b4fa;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -8px; left: 50%;
+    background: #89b4fa; transition: all 0.3s ease; transform: translateX(-50%);
 }
-
-.navbar a:hover {
-    color: #89b4fa;
-}
-
-.navbar a:hover::after {
-    width: 100%;
-}
+.navbar a:hover { color: #89b4fa; }
+.navbar a:hover::after { width: 100%; }
 
 /* ============================================= */
-/* HERO SECTION – Animated Gradient + Particles  */
+/* HERO SECTION                                  */
 /* ============================================= */
 .hero {
     height: 94vh;
@@ -94,78 +73,35 @@ body {
     position: relative;
     overflow: hidden;
 }
-
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-/* Floating particles */
 .hero::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle cx="150" cy="200" r="60" fill="rgba(255,255,255,0.06)"/><circle cx="900" cy="350" r="100" fill="rgba(255,255,255,0.08)"/><circle cx="600" cy="600" r="80" fill="rgba(255,255,255,0.05)"/></svg>') repeat;
     background-size: 500px;
     animation: float 35s infinite linear;
     pointer-events: none;
 }
+@keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(120px,-120px); } }
 
-@keyframes float {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(120px, -120px); }
-}
-
-.hero h1 {
-    font-size: 5.2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    letter-spacing: -1.5px;
-}
-
-.hero p {
-    font-size: 1.5rem;
-    opacity: 0.95;
-    margin-bottom: 40px;
-    font-weight: 400;
-}
-
+.hero h1 { font-size: 5.2rem; font-weight: 700; margin-bottom: 20px; text-shadow: 0 8px 30px rgba(0,0,0,0.4); letter-spacing: -1.5px; }
+.hero p { font-size: 1.5rem; opacity: 0.95; margin-bottom: 40px; font-weight: 400; }
 .hero .btn {
-    background: rgba(255, 255, 255, 0.95);
-    color: #4c6ef5;
-    padding: 18px 44px;
-    border-radius: 50px;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
+    background: rgba(255,255,255,0.95); color: #4c6ef5; padding: 18px 44px; border-radius: 50px;
+    font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px); transition: all 0.4s ease; position: relative; overflow: hidden;
 }
-
 .hero .btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: 0.7s;
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.7s;
 }
-
-.hero .btn:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.35);
-}
-
-.hero .btn:hover::before {
-    left: 100%;
-}
+.hero .btn:hover { transform: translateY(-6px); box-shadow: 0 25px 50px rgba(0,0,0,0.35); }
+.hero .btn:hover::before { left: 100%; }
 
 /* ============================================= */
 /* SECTIONS                                      */
@@ -176,113 +112,53 @@ body {
     margin: 0 auto;
     text-align: center;
 }
-
 .about h2, .projects h2, .contact h2 {
-    font-size: 3.6rem;
-    margin-bottom: 28px;
-    color: #1a1a2e;
-    font-weight: 700;
+    font-size: 3.6rem; margin-bottom: 28px; color: #1a1a2e; font-weight: 700;
 }
-
-.about p {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    color: #555;
-    line-height: 1.9;
-}
+.about p { font-size: 1.2rem; max-width: 800px; margin: 0 auto; color: #555; line-height: 1.9; }
 
 /* ============================================= */
-/* FILTER BAR – Enhanced Glassmorphism           */
+/* FILTER BAR                                    */
 /* ============================================= */
 #filter-bar {
     margin: 60px auto;
     text-align: center;
     padding: 28px 40px;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255,255,255,0.75);
     backdrop-filter: blur(16px);
     border-radius: 28px;
-    box-shadow: 
-        0 20px 50px rgba(0,0,0,0.1),
-        inset 0 0 30px rgba(255,255,255,0.6);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1), inset 0 0 30px rgba(255,255,255,0.6);
     border: 1px solid rgba(255,255,255,0.4);
     display: inline-block;
     max-width: 90%;
 }
-
 #reset-btn {
     background: linear-gradient(135deg, #9775fa, #748ffc);
-    color: white;
-    border: none;
-    padding: 14px 32px;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(116, 95, 252, 0.4);
-    position: relative;
-    overflow: hidden;
+    color: white; border: none; padding: 14px 32px; border-radius: 50px;
+    font-weight: 700; cursor: pointer; transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(116,95,252,0.4); position: relative; overflow: hidden;
 }
-
 #reset-btn:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(116,95,252,0.5); }
 #reset-btn.active { background: #1a1a2e; }
 
-/* Filter buttons */
-#language-filters button,
-#tag-filters button {
-    margin: 10px;
-    padding: 12px 26px;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.35s ease;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
+#language-filters button, #tag-filters button {
+    margin: 10px; padding: 12px 26px; border: none; border-radius: 50px;
+    font-weight: 600; cursor: pointer; transition: all 0.35s ease; backdrop-filter: blur(10px);
 }
-
-#language-filters button {
-    background: rgba(167, 139, 250, 0.2);
-    color: #6b21d4;
-    border: 2px solid rgba(167, 139, 250, 0.4);
+#language-filters button { background: rgba(167,139,250,0.2); color: #6b21d4; border: 2px solid rgba(167,139,250,0.4); }
+#tag-filters button { background: rgba(96,165,250,0.2); color: #1e40af; border: 2px solid rgba(96,165,250,0.4); }
+#language-filters button:hover, #tag-filters button:hover {
+    transform: translateY(-4px) scale(1.05); box-shadow: 0 15px 35px rgba(0,0,0,0.15 15);
 }
-
-#tag-filters button {
-    background: rgba(96, 165, 250, 0.2);
-    color: #1e40af;
-    border: 2px solid rgba(96, 165, 250, 0.4);
-}
-
-#language-filters button:hover,
-#tag-filters button:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-/* Active state – glowing border */
-#language-filters button.active,
-#tag-filters button.active {
-    background: white !important;
-    color: #1a1a2e !important;
-    font-weight: 700;
+#language-filters button.active, #tag-filters button.active {
+    background: white !important; color: #1a1a2e !important; font-weight: 700;
     transform: translateY(-6px) scale(1.08);
-    box-shadow: 
-        0 20px 45px rgba(0,0,0,0.22),
-        0 0 0 4px rgba(255,255,255,0.6),
-        0 0 40px rgba(151, 117, 250, 0.7);
-    z-index: 10;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.6), 0 0 40px rgba(151,117,250,0.7);
 }
-
-#tag-filters button.active {
-    box-shadow: 
-        0 20px 45px rgba(0,0,0,0.22),
-        0 0 0 4px rgba(255,255,255,0.6),
-        0 0 40px rgba(76, 110, 245, 0.8);
-}
+#tag-filters button.active { box-shadow: 0 20px 45px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.6), 0 0 40px rgba(76,110,245,0.8); }
 
 /* ============================================= */
-/* PROJECT GRID & CARDS                          */
+/* PROJECT GRID & CARDS – FINAL VERSION          */
 /* ============================================= */
 .project-list {
     display: flex;
@@ -295,29 +171,27 @@ body {
 .project-card {
     background: white;
     width: 360px;
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: 1px solid rgba(0,0,0,0.06);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    inset: 0;
     background: linear-gradient(135deg, rgba(151,117,250,0.1), rgba(76,110,245,0.1));
     opacity: 0;
     transition: opacity 0.4s;
+    border-radius: 28px;
     pointer-events: none;
-    border-radius: 24px;
 }
-
-.project-card:hover::before {
-    opacity: 1;
-}
-
+.project-card:hover::before { opacity: 1; }
 .project-card:hover {
     transform: translateY(-20px) scale(1.03);
     box-shadow: 0 35px 80px rgba(0,0,0,0.2);
@@ -330,48 +204,69 @@ body {
     object-fit: cover;
     transition: transform 0.6s ease;
 }
+.project-card:hover img { transform: scale(1.08); }
 
-.project-card:hover img {
-    transform: scale(1.08);
+.no-preview {
+    height: 200px;
+    background: #f1f5f9;
+    display: grid;
+    place-items: center;
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+.card-content {
+    padding: 28px 28px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card h3 {
-    padding: 24px 28px 10px;
+    margin: 0 0 12px;
     font-size: 1.5rem;
     color: #1a1a2e;
     font-weight: 600;
 }
 
 .project-card p {
-    padding: 0 28px 16px;
+    margin: 0 0 20px;
     color: #64748b;
     font-size: 1rem;
+    line-height: 1.7;
+    flex-grow: 1;
 }
 
 .tags {
-    padding: 0 28px 16px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-bottom: 20px;
 }
+.tags.languages { margin-bottom: 12px; }
 
 .tag, .language-tag {
     padding: 8px 16px;
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 600;
 }
-
 .tag { background: #dbeafe; color: #1e40af; }
 .language-tag { background: #f3e8ff; color: #7c3aed; }
 
+.button-container {
+    margin-top: auto;
+    padding: 0 28px 28px;
+}
+
 .btn-small {
-    margin: 20px 28px;
-    padding: 14px;
+    display: block;
+    width: 100%;
+    padding: 16px;
     background: linear-gradient(135deg, #9775fa, #748ffc);
     color: white;
     text-align: center;
-    border-radius: 16px;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
@@ -386,6 +281,16 @@ body {
     box-shadow: 0 20px 40px rgba(151,117,250,0.5);
 }
 
+.btn-small::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.7s;
+}
+.btn-small:hover::before { left: 100%; }
+
 /* ============================================= */
 /* FOOTER                                        */
 /* ============================================= */
@@ -398,7 +303,6 @@ footer {
     font-size: 1rem;
     position: relative;
 }
-
 footer::before {
     content: '';
     position: absolute;
@@ -406,5 +310,6 @@ footer::before {
     height: 1px;
     background: linear-gradient(90deg, transparent, #9775fa, transparent);
 }
+
 .navbar a.active { color: #89b4fa; }
 .navbar a.active::after { width: 100%; }

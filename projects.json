@@ -94,7 +94,7 @@
             "The gallery shows the code executed on the cpu with the x86dbg tool(graph and direct code)"
         ],
         "languages": ["MASM32"],
-        "tags": ["Algorithms", "Low-Level", "Learning", "System Architecture"],
+        "tags": ["Algorithms", "Low-Level", "Learning", "System Architecture", "Solo"],
         "features": [
             "Bubble sort implementation",
             "Insertion sort implementation",
@@ -172,7 +172,7 @@
            "I learnt alot about the inner workings of rendering and more importantly. How faces actually work."
     ],
         "languages": ["C#", "Gimp"],
-        "tags": ["Rendering", "Learning", "2D", "File manipulation", "System Architecture", "Efficient"],
+        "tags": ["Rendering", "Learning", "2D", "File manipulation", "System Architecture", "Efficient",  "Solo"],
         "features": [
             "Loops through all triangles and sees what pixels are in them",
             "Outputs a raw PPM image",
@@ -671,7 +671,8 @@
             "Learning",
             "Library",
             "System Architecture",
-            "Low-Level"
+            "Low-Level",
+            "Solo"
         ],
         "syntax": "C#",
         "codeCaption": "Opcodes - Whole program in opcodes",
@@ -909,7 +910,7 @@
 "    running,",
 "    attacking,",
 "    fleeing,",
-"    dead,",
+"    dead,", 
 "    nothing,", 
 "}",
 "[RequireComponent(typeof(NavMeshAgent))]",
