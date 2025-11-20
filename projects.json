@@ -1,6 +1,6 @@
 [
     {
-        "thumbnail": "../Images/Wizcape/Wizcape_Thumbnail.png",
+        "thumbnail": "/Images/Wizcape/Wizcape_Thumbnail.png",
         "id": "wizcape",
         "title": "Wizcape",
         "description": "3D dungeon crawler game made in Unity.",
@@ -21,7 +21,7 @@
            "  -The skeleton will rush at the player and attack and flee so the player has to move.",
            "  -The book will attack from range supporting the previous enemies.",
            "I had a blast making these ai's and have enjoyed learning from my fellow students on how to improve them further." 
-        ],
+        ], 
 
         "languages": ["C#", "Unity"],
         "tags": ["3D", "Game", "Team", "World Generation", "Procedural Generation", "Exploration"],
@@ -31,9 +31,9 @@
             "Fuzzy logic for enemy AI"
         ],
         "images": ["../Images/Wizcape/Wizcape_Dungeon_Generation.png", 
-        "../Images/Wizcape/Wizcape_Thumbnail.png", 
-        "../Images/Wizcape/Wizcape_Fighting.png", 
-        "../Images/Wizcape/Wizcape_Trapped_Room.png"
+        "/Images/Wizcape/Wizcape_Thumbnail.png", 
+        "/Images/Wizcape/Wizcape_Fighting.png", 
+        "/Images/Wizcape/Wizcape_Trapped_Room.png"
       ],
       "syntax": "C#",
       "code": [ 
