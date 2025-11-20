@@ -1,90 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Project... - Nobe Mol</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading Project... - Nobe Mol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --text: #e6edf3;
+  --accent: #9775fa;
+  --accent2: #748ffc;
+  --cyan: #08f7fe;
+  --green: #39ff14;
+  --glow: rgba(151, 117, 250, 0.6);
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    <style>
-        body { margin: 0; font-family: 'Fira Code', monospace; background: #f8fafc; color: #1a202c; min-height: 100vh;
-            background-image: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.06) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(76, 110, 245, 0.07) 0%, transparent 20%);
-            background-attachment: fixed;
-        }
-        .project-detail-container { max-width: 1440px; margin: 90px auto 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr; gap: 70px; }
-        .project-main { background: white; padding: 55px; border-radius: 32px; box-shadow: 0 25px 80px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.04); }
-        #project-title { font-size: 3.8rem; font-weight: 700; margin-bottom: 20px; background: linear-gradient(90deg, #4c6ef5, #748ffc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .project-main h3 { font-size: 1.85rem; margin: 50px 0 20px; color: #1a202c; position: relative; padding-left: 28px; font-weight: 600; }
-        .project-main h3::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 36px; background: linear-gradient(to bottom, #4c6ef5, #89b4fa); border-radius: 6px; }
-        #project-description, #project-information { font-size: 1.22rem; line-height: 1.9; color: #2d3748; margin-bottom: 16px; }
-        .tags { display: flex; flex-wrap: wrap; gap: 14px; margin: 24px 0; }
-        .tag, .language-tag { padding: 11px 24px; border-radius: 50px; font-weight: 600; font-size: 0.98rem; transition: all 0.3s; }
-        .tag { background: #dbeafe; color: #1e40af; }
-        .language-tag { background: #f3e8ff; color: #6b21a8; }
-        .tag:hover, .language-tag:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-        #image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin: 45px 0; }
-        .project-image { width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); transition: transform 0.4s; }
-        .project-image:hover { transform: translateY(-12px); }
-        #feature-list { background: #f8fafc; padding: 32px 36px; border-radius: 24px; border-left: 6px solid #4c6ef5; margin: 50px 0; font-size: 1.1rem; line-height: 1.8; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-        #feature-list li { margin: 18px 0; padding-left: 4px; color: #1a202c; list-style: none; position: relative; }
-        #feature-list li::before { content: "•"; color: #4c6ef5; font-weight: bold; font-size: 1.6em; position: absolute; left: -24px; top: -6px; }
-        .btn-small { display: inline-block; margin-top: 20px; padding: 18px 42px; background: linear-gradient(135deg, #4c6ef5, #748ffc); color: white; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 15px 40px rgba(76,110,245,0.4); transition: all 0.4s; }
-        .btn-small:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(76,110,245,0.5); }
-        .project-sidebar { background: #0d1117; border-radius: 32px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); border: 1px solid #30363d; margin: 40px 40px 80px 40px; max-width: 1400px; }
-        .project-sidebar h3 { background: #161b22; color: #58a6ff; padding: 28px 40px; margin: 0; font-size: 1.8rem; font-weight: 600; border-bottom: 1px solid #30363d; }
-        .code-box pre, .code-box span { color: #ffffff !important; background: #0d1117 !important; }
-        .code-box pre { margin: 0 !important; padding: 44px 40px !important; font-family: 'Fira Code', monospace; font-size: 16.5px; line-height: 1.85; overflow-x: auto; counter-reset: line; }
-        .code-box span { display: block; padding-left: 100px; position: relative; counter-increment: line; }
-        .code-box span::before { content: counter(line); position: absolute; left: 0; width: 80px; text-align: right; color: #6e7681; padding-right: 24px; user-select: none; font-variant-numeric: tabular-nums; }
-        .loading-screen { text-align: center; padding: 160px 20px; font-size: 1.7rem; color: #64748b; }
-        .loading-screen strong { background: linear-gradient(90deg, #4c6ef5, #748ffc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
-        /* GitHub Button Styling */
-        #github-link { display: none; align-items: center; gap: 10px; }
-        #github-link img { width: 24px; height: 24px; vertical-align: middle; }
-    </style>
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Fira Code', monospace;
+  line-height: 1.8;
+  position: relative;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  color: var(--cyan);
+  text-align: center;
+}
+
+/* Project Container */
+.project-detail-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  gap: 40px;
+}
+
+/* Main Content */
+.project-main {
+  flex: 1 1 800px;
+  background: rgba(20,20,35,0.85);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 60px rgba(151,117,250,0.4);
+}
+
+.project-main h2 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 30px;
+}
+
+.project-main h3 {
+  font-size: 1.8rem;
+  color: var(--cyan);
+  margin: 20px 0 10px 0;
+  text-shadow: 0 0 10px var(--cyan);
+}
+
+.project-main p {
+  color: #b0b0b0;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tag, .language-tag {
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: default;
+}
+
+.language-tag {
+  background: rgba(151,117,250,0.35);
+  color: var(--accent);
+  border: 1px solid var(--accent2);
+}
+
+.tag {
+  background: rgba(8,247,254,0.25);
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+}
+
+.tag:hover, .language-tag:hover {
+  background: var(--cyan);
+  color: #000;
+  border-color: var(--cyan);
+}
+
+/* Gallery */
+#image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; /* left-aligned */
+}
+
+.project-image {
+  width: auto;        
+  max-width: 380px;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 30px rgba(151,117,250,0.3);
+  background: #111;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Features */
+#feature-list {
+  list-style: disc;
+  padding-left: 20px;
+  color: #b0b0b0;
+  margin-bottom: 30px;
+}
+
+/* Buttons container */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center; /* vertically align buttons */
+  margin-top: 20px;
+}
+
+/* Buttons container */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center; /* vertically align buttons */
+  margin-top: 20px;
+}
+
+/* Buttons */
+.btn-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  padding: 14px 30px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px var(--glow);
+  font-size: 1rem; /* fixed font size */
+  line-height: 1; /* prevent button growing vertically */
+  height: auto; /* let padding control height */
+  transition: all 0.4s;
+}
+
+.btn-small img {
+  width: 20px;
+  height: 20px; /* keep icon small */
+  object-fit: contain;
+}
+
+
+/* Sidebar */
+.project-sidebar {
+  flex: 0 0 400px;
+  background: rgba(20,20,35,0.85);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 60px rgba(151,117,250,0.3);
+  height: fit-content;
+} 
+
+.code-box {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  color: #8b949e;
+  max-height: 500px;
+  box-shadow: inset 0 0 20px rgba(151,117,250,0.3);
+}
+
+.code-box span {
+  display: block;
+  white-space: pre;
+}
+
+/* Bottom Image Preview with smooth edges */
+#image-preview {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  max-width: 90%;
+  max-height: 40%;
+  border-radius: 16px;
+  box-shadow: 0 0 50px rgba(151,117,250,0.5);
+  background: rgba(20,20,35,0.95);
+  overflow: hidden;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none; /* prevents accidental hover */
+}
+
+#image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* Responsive */
+@media(max-width: 1200px) {
+  .project-detail-container {
+    flex-direction: column;
+    padding: 50px 20px;
+  }
+  .project-sidebar {
+    flex: 1 1 100%;
+  }
+}
+</style>
 </head>
 <body>
 
 <div class="loading-screen">
-    Loading project <strong id="loading-title">…</strong>
+  Loading project <strong id="loading-title">…</strong>
 </div>
 
 <div class="project-detail-container" id="project-content" style="display:none;">
-    <div class="project-main">
-        <h2 id="project-title">Loading…</h2>
-
-        <h3>Description</h3>
-        <p id="project-description">Please wait while we load this project...</p>
-
-        <h3>Information</h3>
-        <div id="project-information"></div>
-
-        <h3>Languages & Frameworks</h3>
-        <div id="language-container" class="tags"></div>
-
-        <h3>Tags</h3>
-        <div id="tag-container" class="tags"></div>
-
-        <h3>Gallery</h3>
-        <div id="image-gallery"></div>
-
-        <h3>Key Features</h3>
-        <ul id="feature-list"></ul>
-
-        <a href="index.html#projects" class="btn-small">Back to Projects</a>
-        <a id="github-link" href="#" target="_blank" class="btn-small">
-            <img src="Images/Icons/Github.png" alt="GitHub"> View on GitHub
-        </a>
+  <div class="project-main">
+    <h2 id="project-title">Loading…</h2>
+    <h3>Description</h3>
+    <p id="project-description">Please wait while we load this project...</p>
+    <h3>Information</h3>
+    <div id="project-information"></div>
+    <h3>Languages & Frameworks</h3>
+    <div id="language-container" class="tags"></div>
+    <h3>Tags</h3>
+    <div id="tag-container" class="tags"></div>
+    <h3>Gallery</h3>
+    <div id="image-gallery"></div>
+    <h3>Key Features</h3>
+    <ul id="feature-list"></ul>
+    
+    <!-- Buttons group -->
+    <div class="button-group">
+      <a href="index.html#projects" class="btn-small">Back to Projects</a>
+      <a id="github-link" href="#" target="_blank" class="btn-small">
+        <img src="Images/Icons/Github.png" alt="GitHub">View on GitHub
+      </a>
     </div>
+  </div>
+  <div class="project-sidebar">
+    <h3 id="code-spotlight-title">Code Spotlight</h3>
+    <pre id="code-snippet" class="code-box"><span></span></pre>
+  </div>
+</div>
 
-    <div class="project-sidebar">
-        <h3 id="code-spotlight-title">Code Spotlight</h3>
-        <pre id="code-snippet" class="code-box"><span></span></pre>
-    </div>
+<!-- Bottom Preview -->
+<div id="image-preview">
+  <img src="" alt="Preview">
 </div>
 
 <script>
@@ -93,117 +306,125 @@ const projectId = params.get("id");
 const loadingTitle = document.getElementById("loading-title");
 
 if (!projectId) {
-    loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
-    throw new Error("Project ID missing");
+  loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
+  throw new Error("Project ID missing");
 }
 
-// Pretty loading title
 loadingTitle.textContent = projectId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
-// Load projects.json
 fetch("projects.json")
-    .then(r => r.json())
-    .then(projects => {
-        const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
-        if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
+.then(r => r.json())
+.then(projects => {
+  const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
+  if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
 
-        document.querySelector(".loading-screen").remove();
-        document.getElementById("project-content").style.display = "block";
+  document.querySelector(".loading-screen").remove();
+  document.getElementById("project-content").style.display = "flex";
+  document.title = `${project.title} - Nobe Mol`;
+  document.getElementById("project-title").textContent = project.title;
+  document.getElementById("project-description").textContent = project.description || "No description provided.";
 
-        document.title = `${project.title} - Nobe Mol`;
-        document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-description").textContent = project.description || "No description provided.";
-
-        // Information paragraphs
-        const infoContainer = document.getElementById("project-information");
-        infoContainer.innerHTML = "";
-        if (Array.isArray(project.information)) {
-            project.information.forEach(info => {
-                const p = document.createElement("p");
-                p.textContent = info;
-                infoContainer.appendChild(p);
-            });
-        }
-
-        // Languages & Tags
-        const sections = [
-            { id: "language-container", key: "languages", className: "language-tag" },
-            { id: "tag-container", key: "tags", className: "tag" }
-        ];
-
-        sections.forEach(({ id, key, className }) => {
-            const container = document.getElementById(id);
-            container.innerHTML = "";
-            (project[key] || []).forEach(item => {
-                const span = document.createElement("span");
-                span.className = className;
-                span.textContent = item;
-                container.appendChild(span);
-            });
-        });
-
-        // Features
-        const featureList = document.getElementById("feature-list");
-        featureList.innerHTML = "";
-        (project.features || []).forEach(f => {
-            const li = document.createElement("li");
-            li.textContent = f;
-            featureList.appendChild(li);
-        });
-
-        // Gallery (images & videos)
-        const gallery = document.getElementById("image-gallery");
-        gallery.innerHTML = "";
-        (project.images || []).forEach(src => {
-            let element;
-            if (/\.(mp4)$/i.test(src)) {
-                element = document.createElement("video");
-                element.src = src;
-                element.controls = true;
-                element.autoplay = false;
-                element.loop = false;
-                element.muted = true;
-            } else {
-                element = document.createElement("img");
-                element.src = src;
-                element.alt = project.title;
-                element.loading = "lazy";
-            }
-            element.className = "project-image";
-            gallery.appendChild(element);
-        });
-
-        // Code snippet
-        const codeBox = document.getElementById("code-snippet");
-        if (project.code && project.code.length) {
-            const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
-            codeBox.innerHTML = lines.map(line => {
-                const escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                return `<span>${escaped || "&nbsp;"}</span>`;
-            }).join("");
-        } else {
-            codeBox.innerHTML = '<span style="color:#8b949e;padding-left:100px;font-style:italic;">No code snippet available</span>';
-        }
-
-        if (project.codeCaption) {
-            document.getElementById("code-spotlight-title").textContent =
-                `Code Spotlight – ${project.codeCaption}`;
-        }
-
-        // GitHub link
-        const githubLink = document.getElementById("github-link");
-        if (project.githublink) {
-            githubLink.href = project.githublink;
-            githubLink.style.display = "inline-flex";
-        } else {
-            githubLink.style.display = "none";
-        }
-
-    })
-    .catch(err => {
-        document.querySelector(".loading-screen").innerHTML =
-            `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
+  // Information
+  const infoContainer = document.getElementById("project-information");
+  infoContainer.innerHTML = "";
+  if (Array.isArray(project.information)) {
+    project.information.forEach(info => {
+      const p = document.createElement("p");
+      p.textContent = info;
+      infoContainer.appendChild(p);
     });
+  }
+
+  // Languages & Tags
+  const sections = [
+    { id: "language-container", key: "languages", className: "language-tag" },
+    { id: "tag-container", key: "tags", className: "tag" }
+  ];
+  sections.forEach(({ id, key, className }) => {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    (project[key] || []).forEach(item => {
+      const span = document.createElement("span");
+      span.className = className;
+      span.textContent = item;
+      container.appendChild(span);
+    });
+  });
+
+  // Features
+  const featureList = document.getElementById("feature-list");
+  featureList.innerHTML = "";
+  (project.features || []).forEach(f => {
+    const li = document.createElement("li");
+    li.textContent = f;
+    featureList.appendChild(li);
+  });
+
+  // Gallery
+  const gallery = document.getElementById("image-gallery");
+  gallery.innerHTML = "";
+  (project.images || []).forEach(src => {
+    let element;
+    if (/\.(mp4)$/i.test(src)) {
+      element = document.createElement("video");
+      element.src = src;
+      element.controls = true;
+      element.autoplay = false;
+      element.loop = false;
+      element.muted = true;
+    } else {
+      element = document.createElement("img");
+      element.src = src;
+      element.alt = project.title;
+      element.loading = "lazy";
+    }
+    element.className = "project-image";
+    gallery.appendChild(element);
+  });
+
+  // Bottom preview functionality
+  const previewContainer = document.getElementById("image-preview");
+  const previewImage = previewContainer.querySelector("img");
+
+  gallery.querySelectorAll(".project-image").forEach(img => {
+    img.addEventListener("mouseenter", () => {
+      previewImage.src = img.src;
+      previewContainer.style.transform = "translateX(-50%) translateY(0)";
+      previewContainer.style.opacity = "1";
+    });
+    img.addEventListener("mouseleave", () => {
+      previewContainer.style.transform = "translateX(-50%) translateY(100%)";
+      previewContainer.style.opacity = "0";
+    });
+  });
+
+  // Code snippet
+  const codeBox = document.getElementById("code-snippet");
+  if (project.code && project.code.length) {
+    const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
+    codeBox.innerHTML = lines.map(line => {
+      const escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return `<span>${escaped || "&nbsp;"}</span>`;
+    }).join("");
+  } else {
+    codeBox.innerHTML = '<span style="color:#8b949e;font-style:italic;">No code snippet available</span>';
+  }
+  if (project.codeCaption) {
+    document.getElementById("code-spotlight-title").textContent = `Code Spotlight – ${project.codeCaption}`;
+  }
+
+  // GitHub link
+  const githubLink = document.getElementById("github-link");
+  if (project.githublink) {
+    githubLink.href = project.githublink;
+    githubLink.style.display = "inline-flex";
+  } else {
+    githubLink.style.display = "none";
+  }
+})
+.catch(err => {
+  document.querySelector(".loading-screen").innerHTML = `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
+});
 </script>
 
 </body>

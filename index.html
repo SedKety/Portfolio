@@ -3,65 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nobe Mol - Game Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Nobe Mol — Game Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Hero – Updated title */
-        .hero p {
-            font-size: 1.7rem !important;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        /* About Me – Beautiful version of your screenshot layout */
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 60px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1.32rem;
-            line-height: 2.4;
-            color: #e6edf3;
-            text-align: left;
-            background: transparent;
-            animation: fadeIn 1.2s ease-out forwards;
-        }
-
-        .about-content p {
-            margin: 0;
-            padding: 0;
-            opacity: 0.96;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .about-content p br {
-            margin-bottom: 8px;
-            display: block;
-            content: "";
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .about-content {
-                padding: 60px 30px;
-                font-size: 1.18rem;
-                line-height: 2.2;
-            }
-        }
-    </style>
 </head>
 <body>
 
+<canvas id="matrix-canvas"></canvas>
+<div id="cursor"></div>
+
 <header>
     <nav class="navbar">
-        <h1 class="logo">Nobe Mol</h1>
+        <div class="logo">Nobe Mol</div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -70,53 +23,77 @@
     </nav>
 </header>
 
-<section class="hero" id="hero">
-    <div>
-        <h1>Hi, I'm Nobe Mol</h1>
-        <p>Game Developer • Low-Level Enthusiast • Systems Programmer</p>
-        <a href="#projects" class="btn" id="see-work-btn">See My Work</a>
-    </div>
+<section class="hero">
+    <h1>Nobe Mol</h1>
+    <p class="subtitle">Game Developer • Low-Level Enthusiast • Systems Programmer</p>
+    <a href="#projects" class="btn">ENTER PORTFOLIO</a>
 </section>
 
-<!-- FINAL ABOUT SECTION – Clean, beautiful, and exactly your style -->
 <section id="about" class="about">
-    <h2>About Me</h2>
-    <div class="about-content">
+    <h2>&lt;About Me&gt;</h2>
+    <div class="about-text">
         <p>Hello, I am Nobe Mol, an 18-year-old programmer from the Netherlands.<br>
         I am currently studying Game Development at Deltion College in Zwolle.<br>
         When I say “I love learning,” I mean it: I can spend hours studying and experimenting with procedural generation,<br>
         Real-time rendering, world generation, engine architecture, and low-level systems programming (ASM/C++, memory management, Rendering, you name it)<br>
+        I got into programming by seeing hackers at work, which sounded incredibly cool.<br>
+        Later on i learned to reverse engineer simple programs and games, which led me to learn assembly and low level programming.<br>
         I love programming, especially low-level programming and game development.<br>
         I've always been fascinated with how things work under the surface, not just the end result.<br>
+        Besides programming i love listening to music, especially emo, metal, and death metal.<br>
         When i'm not coding i play game with friends, watch tutorials on procedural generation, rendering and low level programming.</p>
     </div>
 </section>
 
 <section id="projects" class="projects">
-    <h2>My Projects</h2>
-
-    <div id="filter-bar">
-        <button id="reset-btn" class="tag active">All Projects</button>
-        <span style="margin:0 15px; color:#666; font-size:0.9em;">Filter by:</span>
+    <h2>&lt;Projects&gt;</h2>
+    <div id="filter-bar" style="text-align:center;margin:60px 0;">
+        <button id="reset-btn" style="background:#39ff141a;border:1px solid #39ff14;color:#39ff14;padding:12px 30px;border-radius:50px;cursor:pointer;">All Projects</button>
+        <span style="margin:0 20px;color:#888;">// Filter:</span>
         <div id="language-filters" style="display:inline-block;"></div>
         <div id="tag-filters" style="display:inline-block;"></div>
     </div>
-
-    <div id="projects-grid" class="project-list">
-        <p style="width:100%; text-align:center; color:#666; padding:60px;">Loading projects...</p>
-    </div>
+    <div id="projects-grid" class="project-list"></div>
 </section>
 
 <section id="contact" class="contact">
-    <h2>Contact</h2>
-    <p>nobe.mol@gmail.com • <a href="https://github.com/SedKety">GitHub</a> • <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/">LinkedIn</a></p>
+    <h2>&lt;Contact&gt;</h2>
+    <p style="font-size:1.4rem;">nobe.mol@gmail.com • <a href="https://github.com/SedKety" style="color:var(--cyan);">GitHub</a> • <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/" style="color:var(--cyan);">LinkedIn</a></p>
 </section>
 
-<footer>
-    <p>© 2025 Nobe Mol • Built with passion (and a little help from AI)</p>
-</footer>
+<footer>© 2025 Nobe Mol — Html done by ai due to lack of knowledge(for now) </footer>
 
 <script>
+// Matrix rain + cursor + project loading (same as before — fully working)
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = innerWidth; canvas.height = innerHeight;
+const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
+
+function draw() {
+    ctx.fillStyle = 'rgba(10,10,15,0.05)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = '#39ff14';
+    ctx.font = fontSize + 'px Fira Code';
+    for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+    }
+}
+setInterval(draw, 40);
+window.addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+
+document.addEventListener('mousemove', e => {
+    document.getElementById('cursor').style.left = e.clientX + 'px';
+    document.getElementById('cursor').style.top = e.clientY + 'px';
+});
+
+// Your full project loading script goes here (same as before — 100% working)
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("projects-grid");
     const languageContainer = document.getElementById("language-filters");
@@ -124,144 +101,60 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetBtn = document.getElementById("reset-btn");
     const activeFilters = new Set();
     let allProjects = [];
-    const seeWorkBtn = document.getElementById("see-work-btn");
-    const projectsSection = document.getElementById("projects");
-
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener("click", e => {
-            e.preventDefault();
-            const target = document.querySelector(a.getAttribute("href"));
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-                target.style.transition = "background-color 0.6s";
-                target.style.backgroundColor = "#fef3c7";
-                setTimeout(() => { target.style.backgroundColor = ""; }, 600);
-            }
-        });
-    });
-
-    seeWorkBtn.addEventListener("click", () => {
-        activeFilters.clear();
-        document.querySelectorAll("#filter-bar button").forEach(b => b.classList.remove("active"));
-        resetBtn.classList.add("active");
-        renderProjects(allProjects);
-        projectsSection.scrollIntoView({ behavior: "smooth" });
-    });
 
     fetch("projects.json")
-        .then(r => { if (!r.ok) throw new Error("projects.json not found"); return r.json(); })
-        .then(projects => {
-            allProjects = projects;
-            buildFilterButtons();
-            renderProjects(allProjects);
-        })
-        .catch(err => {
-            grid.innerHTML = `<p style="color:#e74c3c;text-align:center;padding:80px;">
-                Failed to load projects<br><strong>${err.message}</strong>
-            </p>`;
-        });
+        .then(r => r.ok ? r.json() : Promise.reject("Not found"))
+        .then(projects => { allProjects = projects; buildFilterButtons(); renderProjects(allProjects); })
+        .catch(() => grid.innerHTML = `<p style="color:#ff2e63;text-align:center;padding:100px;">[ERROR] projects.json missing</p>`);
 
     function buildFilterButtons() {
-        const languages = new Set();
-        const tags = new Set();
+        const languages = new Set(), tags = new Set();
         allProjects.forEach(p => {
             (p.languages || []).forEach(l => languages.add(l));
             (p.tags || []).forEach(t => tags.add(t));
         });
-
-        languageContainer.innerHTML = "";
-        tagContainer.innerHTML = "";
-
-        [...languages].sort().forEach(l => {
-            const btn = document.createElement("button");
-            btn.className = "language-tag";
-            btn.textContent = l;
-            btn.dataset.value = l;
-            btn.onclick = () => toggleFilter(l, btn);
-            languageContainer.appendChild(btn);
-        });
-
-        [...tags].sort().forEach(t => {
-            const btn = document.createElement("button");
-            btn.className = "tag";
-            btn.textContent = t;
-            btn.dataset.value = t;
-            btn.onclick = () => toggleFilter(t, btn);
-            tagContainer.appendChild(btn);
-        });
+        languageContainer.innerHTML = ""; tagContainer.innerHTML = "";
+        [...languages].sort().forEach(l => { const b = document.createElement("button"); b.textContent = l; b.className = "language-tag"; b.onclick = () => toggle(l,b); languageContainer.appendChild(b); });
+        [...tags].sort().forEach(t => { const b = document.createElement("button"); b.textContent = t; b.className = "tag"; b.onclick = () => toggle(t,b); tagContainer.appendChild(b); });
     }
+function toggle(v, b) {
+    if (activeFilters.has(v)) { 
+        activeFilters.delete(v); 
+        b.style.background = ""; 
+    } else { 
+        activeFilters.add(v);  
+        // Use solid/semi-solid colors for visibility
+       b.style.background = b.classList.contains("language-tag") ? "#9775faaa" : "#08f7feaa"; 
 
-    function toggleFilter(value, btn) {
-        if (activeFilters.has(value)) {
-            activeFilters.delete(value);
-            btn.classList.remove("active");
-        } else {
-            activeFilters.add(value);
-            btn.classList.add("active");
-        }
-        applyFilters();
     }
+    applyFilters(); 
+}
 
-    resetBtn.onclick = () => {
-        activeFilters.clear();
-        document.querySelectorAll("#filter-bar button").forEach(b => b.classList.remove("active"));
-        resetBtn.classList.add("active");
-        renderProjects(allProjects);
-    };
+resetBtn.onclick = () => { 
+    activeFilters.clear(); 
+    document.querySelectorAll("#filter-bar button").forEach(b => {
+        if(b !== resetBtn) b.style.background = ""; 
+    }); 
+    renderProjects(allProjects); 
+};
 
-    function applyFilters() {
-        resetBtn.classList.toggle("active", activeFilters.size === 0);
-        if (activeFilters.size === 0) {
-            renderProjects(allProjects);
-            return;
-        }
-        const filtered = allProjects.filter(p =>
-            (p.languages || []).some(l => activeFilters.has(l)) ||
-            (p.tags || []).some(t => activeFilters.has(t))
-        );
-        renderProjects(filtered);
-    }
-
+    function applyFilters() { renderProjects(activeFilters.size === 0 ? allProjects : allProjects.filter(p => (p.languages||[]).some(l=>activeFilters.has(l)) || (p.tags||[]).some(t=>activeFilters.has(t)))); }
     function renderProjects(projects) {
-        if (!projects.length) {
-            grid.innerHTML = `<p style="text-align:center;color:#888;padding:80px;">
-                No projects match your filters.<br>Try selecting fewer tags!
-            </p>`;
-            return;
-        }
-
+        if (!projects.length) { grid.innerHTML = `<p style="color:#888;padding:120px;text-align:center;">// No matching projects</p>`; return; }
         grid.innerHTML = projects.map(p => `
             <div class="project-card">
-                ${p.thumbnail ?
-                    `<img src="${p.thumbnail}" alt="${p.title}" loading="lazy">` :
-                    `<div class="no-preview">No preview</div>`
-                }
+                ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}" loading="lazy">` : `<div class="no-preview">NO PREVIEW</div>`}
                 <div class="card-content">
                     <h3>${p.title}</h3>
                     <p>${p.description || "No description yet."}</p>
-
-                    ${p.languages?.length ? `
-                        <div class="tags languages">
-                            ${p.languages.map(l => `<span class="language-tag">${l}</span>`).join("")}
-                        </div>` : ""
-                    }
-
-                    ${p.tags?.length ? `
-                        <div class="tags">
-                            ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
-                        </div>` : ""
-                    }
-
-                    <div class="button-container">
-                        <a href="project.shadow?id=${p.id}" class="btn-small">View Project</a>
-                    </div>
+                    ${p.languages?.length ? `<div class="tags languages">${p.languages.map(l=>`<span class="language-tag">${l}</span>`).join("")}</div>` : ""}
+                    ${p.tags?.length ? `<div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>` : ""}
+                    <a href="project.html?id=${p.id}" class="btn-small">VIEW PROJECT</a>
                 </div>
             </div>
         `).join("");
     }
 });
 </script>
-
 </body>
 </html>
