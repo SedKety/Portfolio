@@ -315,8 +315,8 @@
             "Different enemy types with unique behaviors",
             "Hunting and gathering system with a smart drone ai"
         ],
-        "thumbnail": "/Images/Hunters_Hideout/Showcase.png",
-        "images": ["/Images/Hunters_Hideout/Infected_Bear.png", "/Images/Hunters_Hideout/Showcase.png"],
+        "thumbnail": "/Images/HuntersHideout/Showcase.png",
+        "images": ["/Images/HuntersHideout/InfectedBear.png", "/Images/HuntersHideout/Showcase.png"],
         "githublink": "https://github.com/SedKety/Hunter-s-Hideout",
         "codeCaption": "Entity.cs - Base class for all NPC's",
         "syntax": "C#",
