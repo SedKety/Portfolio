@@ -4,452 +4,486 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Loading Project... - Nobe Mol</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --bg: #0a0a0f;
-  --text: #e6edf3;
-  --accent: #9775fa;
-  --accent2: #748ffc;
-  --cyan: #08f7fe;
-  --green: #39ff14;
-  --glow: rgba(151, 117, 250, 0.6);
+    --bg: #0a0a0f;
+    --text: #e6edf3;
+    --accent: #9775fa;
+    --accent2: #748ffc;
+    --cyan: #08f7fe;
+    --green: #39ff14;
+    --glow: rgba(151,117,250,0.6);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html, body {
-  height: 100%;
-  overflow-x: hidden;
-}
+html, body { height: 100%; overflow-x: hidden; }
 
 /* Hide scrollbar (Chrome, Edge, Safari) */
-body::-webkit-scrollbar {
-  display: none;
-}
+body::-webkit-scrollbar { display: none; }
 
 /* Hide scrollbar (Firefox) */
-body {
-  scrollbar-width: none;
-}
-/* Hide all scrollbars but keep scrolling */
-body, .code-box, #image-gallery {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
+body { scrollbar-width: none; }
 
+/* General scroll hiding */
+body, .code-box, #image-gallery {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 body::-webkit-scrollbar,
 .code-box::-webkit-scrollbar,
 #image-gallery::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+    display: none;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Fira Code', monospace;
-  line-height: 1.8;
-  position: relative;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Fira Code', monospace;
+    line-height: 1.8;
+    position: relative;
+}
+
+/* MATRIX CANVAS */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Loading Screen */
 .loading-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 2rem;
-  color: var(--cyan);
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 2rem;
+    color: var(--cyan);
+    text-align: center;
+    z-index: 5;
+    position: relative;
 }
 
 /* Project Container */
 .project-detail-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 100px 20px;
-  gap: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    gap: 40px;
+    position: relative;
+    z-index: 5;
 }
 
 /* Main Content */
 .project-main {
-  flex: 1 1 800px;
-  background: rgba(20,20,35,0.85);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 0 60px rgba(151,117,250,0.4);
+    flex: 1 1 800px;
+    background: rgba(20,20,35,0.85);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 60px rgba(151,117,250,0.4);
 }
-
 .project-main h2 {
-  font-size: 3rem;
-  background: linear-gradient(90deg, var(--accent), var(--cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 30px;
+    font-size: 3rem;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
 }
-
 .project-main h3 {
-  font-size: 1.8rem;
-  color: var(--cyan);
-  margin: 20px 0 10px 0;
-  text-shadow: 0 0 10px var(--cyan);
+    font-size: 1.8rem;
+    color: var(--cyan);
+    margin: 20px 0 10px 0;
+    text-shadow: 0 0 10px var(--cyan);
 }
-
 .project-main p {
-  color: #b0b0b0;
-  margin-bottom: 15px;
-  line-height: 1.8;
+    color: #b0b0b0;
+    margin-bottom: 15px;
+    line-height: 1.8;
 }
 
+/* Tags */
 .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
-
 .tag, .language-tag {
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: 0.3s;
-  cursor: default;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: default;
 }
-
 .language-tag {
-  background: rgba(151,117,250,0.35);
-  color: var(--accent);
-  border: 1px solid var(--accent2);
+    background: rgba(151,117,250,0.35);
+    color: var(--accent);
+    border: 1px solid var(--accent2);
 }
-
 .tag {
-  background: rgba(8,247,254,0.25);
-  color: var(--cyan);
-  border: 1px solid var(--cyan);
+    background: rgba(8,247,254,0.25);
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
 }
-
 .tag:hover, .language-tag:hover {
-  background: var(--cyan);
-  color: #000;
-  border-color: var(--cyan);
+    background: var(--cyan);
+    color: #000;
 }
 
 /* Gallery */
 #image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: flex-start; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
-
 .project-image {
-  width: auto;        
-  max-width: 380px;
-  height: auto;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 30px rgba(151,117,250,0.3);
-  background: #111;
-  display: block;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 380px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(151,117,250,0.3);
+    background: #111;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
 /* Features */
 #feature-list {
-  list-style: disc;
-  padding-left: 20px;
-  color: #b0b0b0;
-  margin-bottom: 30px;
-}
-
-/* Buttons container */
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center;
-  margin-top: 20px;
+    list-style: disc;
+    padding-left: 20px;
+    color: #b0b0b0;
 }
 
 /* Buttons */
-.btn-small {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 30px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white;
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 50px;
-  box-shadow: 0 10px 30px var(--glow);
-  font-size: 1rem;
-  line-height: 1;
-  height: auto;
-  transition: all 0.4s;
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
 }
+.btn-small {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px var(--glow);
+    font-size: 1rem;
+    transition: all 0.4s;
+}
+.btn-small img { width: 20px; height: 20px; }
 
-.btn-small img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+#matrix-canvas {
+  opacity: 0.25;
 }
 
 /* Sidebar */
 .project-sidebar {
-  flex: 0 0 400px;
-  background: rgba(20,20,35,0.85);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 0 60px rgba(151,117,250,0.3);
-  height: fit-content;
-} 
+    flex: 0 0 400px;
+    background: rgba(20,20,35,0.85);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 60px rgba(151,117,250,0.3);
+    height: fit-content;
+}
 
-/* Code box with line numbers */
+/* Code Box */
 .code-box {
-  background: #111;
-  padding: 20px 20px 20px 50px; /* left padding for line numbers */
-  border-radius: 12px;
-  overflow-x: auto;
-  font-size: 0.9rem;
-  color: #8b949e;
-  max-height: 500px;
-  box-shadow: inset 0 0 20px rgba(151,117,250,0.3);
-  position: relative;
-  counter-reset: linenumber;
+    background: #111;
+    padding: 20px 20px 20px 50px;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    color: #8b949e;
+    max-height: 500px;
+    box-shadow: inset 0 0 20px rgba(151,117,250,0.3);
+    counter-reset: linenumber;
 }
-
 .code-box span {
-  display: block;
-  white-space: pre;
-  counter-increment: linenumber;
-  position: relative;
+    display: block;
+    white-space: pre;
+    counter-increment: linenumber;
+    position: relative;
 }
-
 .code-box span::before {
-  content: counter(linenumber);
-  position: absolute;
-  left: -40px;
-  width: 30px;
-  text-align: right;
-  color: #555;
-  user-select: none;
+    content: counter(linenumber);
+    position: absolute;
+    left: -40px;
+    width: 30px;
+    text-align: right;
+    color: #555;
 }
 
 /* Bottom Image Preview */
 #image-preview {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  max-width: 90%;
-  max-height: 40%;
-  border-radius: 16px;
-  box-shadow: 0 0 50px rgba(151,117,250,0.5);
-  background: rgba(20,20,35,0.95);
-  overflow: hidden;
-  z-index: 9999;
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  pointer-events: none;
-}
-
-#image-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 16px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    max-width: 90%;
+    max-height: 40%;
+    border-radius: 16px;
+    box-shadow: 0 0 50px rgba(151,117,250,0.5);
+    background: rgba(20,20,35,0.95);
+    z-index: 10000;
+    opacity: 0;
+    transition: 0.4s ease;
+    pointer-events: none;
 }
 
 /* Responsive */
 @media(max-width: 1200px) {
-  .project-detail-container {
-    flex-direction: column;
-    padding: 50px 20px;
-  }
-  .project-sidebar {
-    flex: 1 1 100%;
-  }
+    .project-detail-container {
+        flex-direction: column;
+        padding: 50px 20px;
+    }
+    .project-sidebar { flex: 1 1 100%; }
 }
 </style>
 </head>
+
 <body>
 
+<!-- MATRIX RAIN BACKGROUND -->
+<canvas id="matrix-canvas"></canvas>
+
 <div class="loading-screen">
-  Loading project <strong id="loading-title">…</strong>
+    Loading project <strong id="loading-title">…</strong>
 </div>
 
 <div class="project-detail-container" id="project-content" style="display:none;">
-  <div class="project-main">
-    <h2 id="project-title">Loading…</h2>
-    <h3>Description</h3>
-    <p id="project-description">Please wait while we load this project...</p>
-    <h3>Information</h3>
-    <div id="project-information"></div>
-    <h3>Languages & Frameworks</h3>
-    <div id="language-container" class="tags"></div>
-    <h3>Tags</h3>
-    <div id="tag-container" class="tags"></div>
-    <h3>Gallery</h3>
-    <div id="image-gallery"></div>
-    <h3>Key Features</h3>
-    <ul id="feature-list"></ul>
-    
-    <!-- Buttons group -->
-    <div class="button-group">
-      <a href="index.html#projects" class="btn-small">Back to Projects</a>
-      <a id="github-link" href="#" target="_blank" class="btn-small">
-        <img src="Images/Icons/Github.png" alt="GitHub">View on GitHub
-      </a>
+    <div class="project-main">
+        <h2 id="project-title">Loading…</h2>
+
+        <h3>Description</h3>
+        <p id="project-description">Please wait while we load this project...</p>
+
+        <h3>Information</h3>
+        <div id="project-information"></div>
+
+        <h3>Languages & Frameworks</h3>
+        <div id="language-container" class="tags"></div>
+
+        <h3>Tags</h3>
+        <div id="tag-container" class="tags"></div>
+
+        <h3>Gallery</h3>
+        <div id="image-gallery"></div>
+
+        <h3>Key Features</h3>
+        <ul id="feature-list"></ul>
+
+        <div class="button-group">
+            <a href="index.html#projects" class="btn-small">Back to Projects</a>
+            <a id="github-link" href="#" target="_blank" class="btn-small">
+                <img src="Images/Icons/Github.png" alt="GitHub">
+                View on GitHub
+            </a>
+        </div>
     </div>
-  </div>
-  <div class="project-sidebar">
-    <h3 id="code-spotlight-title">Code Spotlight</h3>
-    <pre id="code-snippet" class="code-box"><span></span></pre>
-  </div>
+
+    <div class="project-sidebar">
+        <h3 id="code-spotlight-title">Code Spotlight</h3>
+        <pre id="code-snippet" class="code-box"><span></span></pre>
+    </div>
 </div>
 
 <!-- Bottom Preview -->
-<div id="image-preview">
-  <img src="" alt="Preview">
-</div>
+<div id="image-preview"><img src="" alt="Preview"></div>
 
 <script>
+/* --- YOUR ORIGINAL LOADING SCRIPT --- */
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 const loadingTitle = document.getElementById("loading-title");
 
 if (!projectId) {
-  loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
-  throw new Error("Project ID missing");
+    loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
+    throw new Error("Project ID missing");
 }
 
 loadingTitle.textContent = projectId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
 fetch("projects.json")
-.then(r => r.json())
-.then(projects => {
-  const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
-  if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
+    .then(r => r.json())
+    .then(projects => {
+        const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
+        if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
 
-  document.querySelector(".loading-screen").remove();
-  document.getElementById("project-content").style.display = "flex";
-  document.title = `${project.title} - Nobe Mol`;
-  document.getElementById("project-title").textContent = project.title;
-  document.getElementById("project-description").textContent = project.description || "No description provided.";
+        document.querySelector(".loading-screen").remove();
+        document.getElementById("project-content").style.display = "flex";
 
-  // Information
-  const infoContainer = document.getElementById("project-information");
-  infoContainer.innerHTML = "";
-  if (Array.isArray(project.information)) {
-    project.information.forEach(info => {
-      const p = document.createElement("p");
-      p.textContent = info;
-      infoContainer.appendChild(p);
+        document.title = `${project.title} - Nobe Mol`;
+        document.getElementById("project-title").textContent = project.title;
+        document.getElementById("project-description").textContent = project.description || "No description provided.";
+
+        const infoContainer = document.getElementById("project-information");
+        infoContainer.innerHTML = "";
+        if (Array.isArray(project.information)) {
+            project.information.forEach(info => {
+                const p = document.createElement("p");
+                p.textContent = info;
+                infoContainer.appendChild(p);
+            });
+        }
+
+        const sections = [
+            { id: "language-container", key: "languages", className: "language-tag" },
+            { id: "tag-container", key: "tags", className: "tag" }
+        ];
+
+        sections.forEach(({ id, key, className }) => {
+            const container = document.getElementById(id);
+            container.innerHTML = "";
+            (project[key] || []).forEach(item => {
+                const span = document.createElement("span");
+                span.className = className;
+                span.textContent = item;
+                container.appendChild(span);
+            });
+        });
+
+        const featureList = document.getElementById("feature-list");
+        featureList.innerHTML = "";
+        (project.features || []).forEach(f => {
+            const li = document.createElement("li");
+            li.textContent = f;
+            featureList.appendChild(li);
+        });
+
+        const gallery = document.getElementById("image-gallery");
+        gallery.innerHTML = "";
+        (project.images || []).forEach(src => {
+            let element;
+            if (/\.(mp4)$/i.test(src)) {
+                element = document.createElement("video");
+                element.src = src;
+                element.controls = true;
+            } else {
+                element = document.createElement("img");
+                element.src = src;
+                element.alt = project.title;
+                element.loading = "lazy";
+            }
+            element.className = "project-image";
+            gallery.appendChild(element);
+        });
+
+        const previewContainer = document.getElementById("image-preview");
+        const previewImage = previewContainer.querySelector("img");
+
+        gallery.querySelectorAll(".project-image").forEach(img => {
+            img.addEventListener("mouseenter", () => {
+                previewImage.src = img.src;
+                previewContainer.style.transform = "translateX(-50%) translateY(0)";
+                previewContainer.style.opacity = "1";
+            });
+            img.addEventListener("mouseleave", () => {
+                previewContainer.style.transform = "translateX(-50%) translateY(100%)";
+                previewContainer.style.opacity = "0";
+            });
+        });
+
+        const codeBox = document.getElementById("code-snippet");
+        if (project.code && project.code.length) {
+            const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
+            codeBox.innerHTML = lines.map(line => {
+                const escaped = line.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                return `<span>${escaped || "&nbsp;"}</span>`;
+            }).join("");
+        } else {
+            codeBox.innerHTML = '<span style="color:#8b949e;font-style:italic;">No code snippet available</span>';
+        }
+
+        if (project.codeCaption) {
+            document.getElementById("code-spotlight-title").textContent =
+                `Code Spotlight – ${project.codeCaption}`;
+        }
+
+        const githubLink = document.getElementById("github-link");
+        if (project.githublink) {
+            githubLink.href = project.githublink;
+            githubLink.style.display = "inline-flex";
+        } else {
+            githubLink.style.display = "none";
+        }
+    })
+    .catch(err => {
+        document.querySelector(".loading-screen").innerHTML =
+            `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
     });
-  }
+</script>
 
-  // Languages & Tags
-  const sections = [
-    { id: "language-container", key: "languages", className: "language-tag" },
-    { id: "tag-container", key: "tags", className: "tag" }
-  ];
-  sections.forEach(({ id, key, className }) => {
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    (project[key] || []).forEach(item => {
-      const span = document.createElement("span");
-      span.className = className;
-      span.textContent = item;
-      container.appendChild(span);
-    });
-  });
+<script>
+// --- FIXED MATRIX RAIN (same colors & style as project page) ---
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
 
-  // Features
-  const featureList = document.getElementById("feature-list");
-  featureList.innerHTML = "";
-  (project.features || []).forEach(f => {
-    const li = document.createElement("li");
-    li.textContent = f;
-    featureList.appendChild(li);
-  });
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-  // Gallery
-  const gallery = document.getElementById("image-gallery");
-  gallery.innerHTML = "";
-  (project.images || []).forEach(src => {
-    let element;
-    if (/\.(mp4)$/i.test(src)) {
-      element = document.createElement("video");
-      element.src = src;
-      element.controls = true;
-      element.autoplay = false;
-      element.loop = false;
-      element.muted = true;
-    } else {
-      element = document.createElement("img");
-      element.src = src;
-      element.alt = project.title;
-      element.loading = "lazy";
+// Matrix characters identical on both pages
+const chars =
+"01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ"+
+"マミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+
+// Identical size & spacing
+const fontSize = 16;
+let columns = canvas.width / fontSize;
+
+// Identical falling drops
+let drops = Array(Math.floor(columns)).fill(1);
+
+// MAIN DRAW LOOP
+function draw() {
+    // Match opacity/fade exactly
+    ctx.fillStyle = "rgba(10, 10, 15, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // EXACT green color from your other page
+    ctx.fillStyle = "#39ff14";
+    ctx.font = fontSize + "px Fira Code";
+
+    for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
     }
-    element.className = "project-image";
-    gallery.appendChild(element);
-  });
+}
 
-  // Bottom preview functionality
-  const previewContainer = document.getElementById("image-preview");
-  const previewImage = previewContainer.querySelector("img");
+// Identical frame speed
+setInterval(draw, 40);
 
-  gallery.querySelectorAll(".project-image").forEach(img => {
-    img.addEventListener("mouseenter", () => {
-      previewImage.src = img.src;
-      previewContainer.style.transform = "translateX(-50%) translateY(0)";
-      previewContainer.style.opacity = "1";
-    });
-    img.addEventListener("mouseleave", () => {
-      previewContainer.style.transform = "translateX(-50%) translateY(100%)";
-      previewContainer.style.opacity = "0";
-    });
-  });
-
-  // Code snippet with line numbers
-  const codeBox = document.getElementById("code-snippet");
-  if (project.code && project.code.length) {
-    const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
-    codeBox.innerHTML = lines.map(line => {
-      const escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      return `<span>${escaped || "&nbsp;"}</span>`;
-    }).join("");
-  } else {
-    codeBox.innerHTML = '<span style="color:#8b949e;font-style:italic;">No code snippet available</span>';
-  }
-  if (project.codeCaption) {
-    document.getElementById("code-spotlight-title").textContent = `Code Spotlight – ${project.codeCaption}`;
-  }
-
-  // GitHub link
-  const githubLink = document.getElementById("github-link");
-  if (project.githublink) {
-    githubLink.href = project.githublink;
-    githubLink.style.display = "inline-flex";
-  } else {
-    githubLink.style.display = "none";
-  }
-})
-.catch(err => {
-  document.querySelector(".loading-screen").innerHTML = `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
+// Resize handling — keep matrix consistent across both pages
+window.addEventListener("resize", () => {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    columns = canvas.width / fontSize;
+    drops = Array(Math.floor(columns)).fill(1);
 });
+</script>
+
+
+setInterval(draw, 40);
 </script>
 
 </body>
