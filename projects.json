@@ -837,7 +837,7 @@
 
     {
         "githublink": "https://github.com/SedKety/ECS",
-        "thumbnail": "Images/ECS/ECSThumbnail.png.png",
+        "thumbnail": "Images/ECS/ECSThumbnail.png",
         "id": "ecs-library",
         "title": "ECS",
         "description": "A custom C++ Entity Component System library.",
@@ -857,7 +857,7 @@
             "Easy to use APIs",
             "Modular systems"
         ],
-        "images": ["Images/ECS/ECSPhysics.png.png"],
+        "images": ["Images/ECS/ECSPhysics.png"],
         "syntax": "C++",
         "codeCaption": "Entity.h – Core Entity Structure",
         "code": [
@@ -912,7 +912,7 @@
 
     {
         "githublink": "https://github.com/SedKety/LASM",
-        "thumbnail" : "Images/Assembly/Bubble_Sort.png",
+        "thumbnail" : "Images/Assembly/BubbleSort.png", 
         "id": "assembly-sorting",
         "title": "Sorting Algorithms in Assembly",
         "description": "A series of optimized sorting algorithms written fully in x86 assembly.",
@@ -936,7 +936,7 @@
             "Custom loops"
         ],
         "syntax": "MASM32",
-        "images": ["Images/Assembly/BubbleSort.png", "/Images/Assembly/BubbleSortGraph.png"],
+        "images": ["Images/Assembly/BubbleSort.png", "Images/Assembly/BubbleSortGraph.png"],
         "codeCaption": "bubble_sort.asm – MASM32 Implementation",
 "code": [
     ".386",
