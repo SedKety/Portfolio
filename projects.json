@@ -221,12 +221,12 @@
 
     {
         "githublink": "https://github.com/FirePixel8422/TerraTopia",
-        "thumbnail": "Images/Terratopia/Concept.png",
+        "thumbnail": "Images/Terratopia/concept.png",
         "id": "terratopia",
         "title": "Terratopia",
         "languages":["C#", "Unity", "Netcode"],
         "tags": ["Procedural Generation","World Generation", "Team", "Multiplayer", "3D", "Game", "Exploration"],
-        "images": ["Images/Terratopia/TerratopiaTrailer.mp4", "Images/Terratopia/Concept.png"],
+        "images": ["Images/Terratopia/TerratopiaTrailer.mp4", "Images/Terratopia/concept.png"],
         "features": [
             "Procedurally generated worlds", 
             "Unity netcode allowing for up to 4 players",
