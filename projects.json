@@ -1,6 +1,6 @@
 [
     {
-        "thumbnail": "/Images/Wizcape/WizcapeThumbnail.png",
+        "thumbnail": "Images/Wizcape/WizcapeThumbnail.png",
         "id": "wizcape",
         "title": "Wizcape",
         "description": "3D dungeon crawler game made in Unity.",
@@ -30,10 +30,10 @@
             "Different enemy types with unique behaviors",
             "Fuzzy logic for enemy AI"
         ],
-        "images": ["../Images/Wizcape/WizcapeDungeonGeneration.png", 
-        "/Images/Wizcape/WizcapeThumbnail.png", 
-        "/Images/Wizcape/WizcapeFighting.png", 
-        "/Images/Wizcape/WizcapeTrappedRoom.png"
+        "images": ["Images/Wizcape/WizcapeDungeonGeneration.png", 
+        "Images/Wizcape/WizcapeThumbnail.png", 
+        "Images/Wizcape/WizcapeFighting.png", 
+        "Images/Wizcape/WizcapeTrappedRoom.png"
       ],
       "syntax": "C#",
       "code": [ 
@@ -221,12 +221,12 @@
 
     {
         "githublink": "https://github.com/FirePixel8422/TerraTopia",
-        "thumbnail": "/Images/Terratopia/concept.png",
+        "thumbnail": "Images/Terratopia/Concept.png",
         "id": "terratopia",
         "title": "Terratopia",
         "languages":["C#", "Unity", "Netcode"],
         "tags": ["Procedural Generation","World Generation", "Team", "Multiplayer", "3D", "Game", "Exploration"],
-        "images": ["/Images/Terratopia/TerratopiaTrailer.mp4", "/Images/Terratopia/concept.png"],
+        "images": ["Images/Terratopia/TerratopiaTrailer.mp4", "Images/Terratopia/Concept.png"],
         "features": [
             "Procedurally generated worlds", 
             "Unity netcode allowing for up to 4 players",
@@ -315,8 +315,8 @@
             "Different enemy types with unique behaviors",
             "Hunting and gathering system with a smart drone ai"
         ],
-        "thumbnail": "/Images/HuntersHideout/Showcase.png",
-        "images": ["/Images/HuntersHideout/InfectedBear.png", "/Images/HuntersHideout/Showcase.png"],
+        "thumbnail": "Images/HuntersHideout/Showcase.png",
+        "images": ["Images/HuntersHideout/InfectedBear.png", "/Images/HuntersHideout/Showcase.png"],
         "githublink": "https://github.com/SedKety/Hunter-s-Hideout",
         "codeCaption": "Entity.cs - Base class for all NPC's",
         "syntax": "C#",
@@ -668,8 +668,8 @@
             "Multiple bossfights",
             "Variety of weapons"
         ],
-        "thumbnail": "/Images/DeliciousInOcean/Kraken.png",
-        "images": ["/Images/DeliciousInOcean/Kraken.png", "/Images/DeliciousInOcean/Trailer.mp4"],
+        "thumbnail": "Images/DeliciousInOcean/Kraken.png",
+        "images": ["Images/DeliciousInOcean/Kraken.png", "Images/DeliciousInOcean/Trailer.mp4"],
         "githublink": "https://github.com/JustinMakesGames/Delicious-and-Ocean",
         "syntax": "C#",
         "codeCaption": "Kraken.cs - Final boss script",
@@ -775,7 +775,7 @@
         "githublink": "https://github.com/SedKety/Pest-Control", 
         "id": "pest_patrol",
         "title": "Pest Patrol",
-        "thumbnail": "/Images/PestPatrol/MainScreen.png",
+        "thumbnail": "Images/PestPatrol/MainScreen.png",
         "description": "Tower defense game where you act as an pest control agent",
         "languages": [
             "C#",
@@ -804,12 +804,12 @@
             "Different maps"
         ],
         "syntax": "C#",
-        "images": ["/Images/PestPatrol/MainScreen.png", "/Images/PestPatrol/Gameplay.png"]
+        "images": ["Images/PestPatrol/MainScreen.png", "Images/PestPatrol/Gameplay.png"]
     },
 
     {
-        "thumbnail": "/Images/IntoxicatedBeachDrive/MainScreen.png",
-        "images": ["/Images/IntoxicatedBeachDrive/MainScreen.png", "/Images/IntoxicatedBeachDrive/Gameplay.png"],
+        "thumbnail": "Images/IntoxicatedBeachDrive/MainScreen.png",
+        "images": ["Images/IntoxicatedBeachDrive/MainScreen.png", "Images/IntoxicatedBeachDrive/Gameplay.png"],
         "id": "intoxicated_beach_drive",
         "title": "Intoxicated Beach Drive",
         "description": "A 3D driving game where you drive around on a beach hitting as many obstacles as possible while intoxicated.",
@@ -837,7 +837,7 @@
 
     {
         "githublink": "https://github.com/SedKety/ECS",
-        "thumbnail": "/Images/ECS/ECSThumbnail.png.png",
+        "thumbnail": "Images/ECS/ECSThumbnail.png.png",
         "id": "ecs-library",
         "title": "ECS",
         "description": "A custom C++ Entity Component System library.",
@@ -857,7 +857,7 @@
             "Easy to use APIs",
             "Modular systems"
         ],
-        "images": ["/Images/ECS/ECSPhysics.png.png"],
+        "images": ["Images/ECS/ECSPhysics.png.png"],
         "syntax": "C++",
         "codeCaption": "Entity.h – Core Entity Structure",
         "code": [
@@ -912,7 +912,7 @@
 
     {
         "githublink": "https://github.com/SedKety/LASM",
-        "thumbnail" : "/Images/Assembly/Bubble_Sort.png",
+        "thumbnail" : "Images/Assembly/Bubble_Sort.png",
         "id": "assembly-sorting",
         "title": "Sorting Algorithms in Assembly",
         "description": "A series of optimized sorting algorithms written fully in x86 assembly.",
@@ -936,7 +936,7 @@
             "Custom loops"
         ],
         "syntax": "MASM32",
-        "images": ["/Images/Assembly/BubbleSort.png", "/Images/Assembly/BubbleSortGraph.png"],
+        "images": ["Images/Assembly/BubbleSort.png", "/Images/Assembly/BubbleSortGraph.png"],
         "codeCaption": "bubble_sort.asm – MASM32 Implementation",
 "code": [
     ".386",
@@ -992,7 +992,7 @@
 
     {
         "githublink": "https://github.com/SedKety/Renderer",
-        "thumbnail": "/Images/PPM/PPM_Renderer_Thumbnail.png",
+        "thumbnail": "Images/PPM/PPM_Renderer_Thumbnail.png",
         "id": "ppm-renderer",
         "title": "PPM Renderer",
         "description": "A simple vertex renderer which writes directly to a PPM image.",
@@ -1016,7 +1016,7 @@
         ],
 
 
-        "images": ["/Images/PPM/PPM_Renderer_Thumbnail.png", "/Images/PPM/PPM_Variety.png"],
+        "images": ["Images/PPM/PPM_Renderer_Thumbnail.png", "Images/PPM/PPM_Variety.png"],
         "syntax": "C#",
         "codeCaption": "Renderer.cs – Rasterizer to PPM",
                 "code": [
@@ -1148,8 +1148,8 @@
     },
 
     {
-        "thumbnail": "/Images/CPU/CPU.png",
-        "images": ["/Images/CPU/CPU.png"],
+        "thumbnail": "Images/CPU/CPU.png",
+        "images": ["Images/CPU/CPU.png"],
         "features": [
             "Takes in bytes as opcodes and translates that into eecuted code",
             "Basic opcodes(jmp, load, mov, inc, sub, cmp)",
@@ -1275,8 +1275,8 @@
             "Randomly generated dungeons",
             "Random enemy names/properties"
         ],
-        "thumbnail": "/Images/Avonturio/MainScreen.png",
-        "images": ["/Images/Avonturio/MainScreen.png", "/Images/Avonturio/Dungeon.png", "/Images/Avonturio/Dialogue.png"],
+        "thumbnail": "Images/Avonturio/MainScreen.png",
+        "images": ["Images/Avonturio/MainScreen.png", "Images/Avonturio/Dungeon.png", "Images/Avonturio/Dialogue.png"],
         "codeCaption": "InputManager.cs - Custom input system",
   "code": [
 "using System;",
