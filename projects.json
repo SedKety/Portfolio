@@ -24,7 +24,7 @@
         ], 
 
         "languages": ["C#", "Unity"],
-        "tags": ["3D", "Game", "Team", "World Generation", "Procedural Generation", "Exploration"],
+        "tags": ["3D", "Game", "Team", "World Generation"],
         "features": [
             "Procedurally generated dungeons",
             "Different enemy types with unique behaviors",
@@ -56,7 +56,7 @@
     "Additionally, i learned to use enum's and scriptable objects to make it as easy as possible for my artists to mess with."
 ],
   "languages": ["C#", "Unity"],
-  "tags": ["Game", "3D", "Exploration", "Survival", "Team", "World Generation", "Procedural Generation", "Sole Programmer"],
+  "tags": ["Game", "3D", "Team", "World Generation", "Sole Programmer"],
   "features": [
     "Procedurally generated worlds",
     "Lots of different biomes with respective islands and flora",
@@ -224,8 +224,8 @@
         "thumbnail": "Images/Terratopia/concept.png",
         "id": "terratopia",
         "title": "Terratopia",
-        "languages":["C#", "Unity", "Netcode"],
-        "tags": ["Procedural Generation","World Generation", "Team", "Multiplayer", "3D", "Game", "Exploration"],
+        "languages":["C#", "Unity"],
+        "tags": ["World Generation", "Team", "Multiplayer", "3D", "Game"],
         "images": ["Images/Terratopia/TerratopiaTrailer.mp4", "Images/Terratopia/concept.png"],
         "features": [
             "Procedurally generated worlds", 
@@ -235,7 +235,7 @@
             "Turn based combat/exploration/building"
                     ],
         
-        "description": "Online multiplayer turnbased exploration game inspired by Polytopia",
+        "description": "Online multiplayer turnbased procedurally generated pvp game inspired by Polytopia",
         "information": [
             "This game is heavily inspired by the game Polytopia, a game i grew up with.",
             "It is an turn based combat game where players train units, place structures and take over cities.",
@@ -296,7 +296,7 @@
     {
         "id": "hunters_hideout",
         "title": "Hunter's Hideout",
-        "description": "Survival hunting game set in a hunting cabin.",
+        "description": "VR survival hunting game set in a hunting cabin.",
         "information": [
             "School wanted for us(my team) to make a VR game.",
             "Though none of us had any real experience with VR we thought this concept was great.",
@@ -308,7 +308,7 @@
             "I'm happy we made this game due to the fact that i learnt so much from it."
         ],
         "languages": ["C#", "Unity"],
-        "tags": ["3D", "Game", "VR", "Survival", "Team", "World Generation", "Exploration", "Wave Defense", "Sole Programmer"], 
+        "tags": ["3D", "Game", "VR", "Team", "World Generation","Sole Programmer"], 
         "features": [
             "Custom VR interaction system",
             "Variety of weapons",
@@ -651,7 +651,7 @@
     {
         "id": "delicious-in-ocean",
         "title": "Delicious In Ocean",
-        "tags": ["3D", "Game", "VR", "Team", "Exploration"],
+        "tags": ["3D", "Game", "VR", "Team"],
         "languages": ["C#", "Unity"],
         "description": "A VR cooking game where you kill and hunt to gather ingredients to cook with.",
         "information": [
@@ -784,9 +784,7 @@
         "tags": [
             "3D",
             "Game",
-            "Learning",
-            "Team",
-            "Wave Defense"
+            "Team"
         ],
         "information": [
             "In pest patrol you create your own path with road-sections.",
@@ -851,7 +849,7 @@
     
     ],
         "languages": ["C++"],
-        "tags": ["Library", "Low-Level", "Efficient", "Learning", "System Architecture", "Sole Programmer"],
+        "tags": ["Library", "Low-Level", "Learning", "System Architecture", "Sole Programmer"],
         "features": [
             "Easy-to-create new components",
             "Easy to use APIs",
@@ -929,7 +927,7 @@
             "The gallery shows the code executed on the cpu with the x86dbg tool(graph and direct code)"
         ],
         "languages": ["MASM32"],
-        "tags": ["Algorithms", "Low-Level", "Learning", "System Architecture", "Solo", "Sole Programmer"],
+        "tags": ["Low-Level", "Learning", "System Architecture", "Solo", "Sole Programmer"],
         "features": [
             "Bubble sort implementation",
             "Insertion sort implementation",
@@ -1006,8 +1004,8 @@
            "In the end i send all the pixel data to a ppm file and then open it in a software such as: Gimp",
            "I learnt alot about the inner workings of rendering and more importantly. How faces actually work."
     ],
-        "languages": ["C#", "Gimp"],
-        "tags": ["Rendering", "Learning", "2D", "File manipulation", "System Architecture", "Efficient",  "Solo", "Sole Programmer"],
+        "languages": ["C#"],
+        "tags": ["Learning", "2D", "System Architecture",  "Solo", "Sole Programmer"],
         "features": [
             "Loops through all triangles and sees what pixels are in them",
             "Outputs a raw PPM image",
@@ -1251,144 +1249,6 @@
 "    }",
 "}"
                 ]
-    },
-
-    {
-        "githublink": "https://github.com/SedKety/Avonturio",
-        "tags": ["2D", "Game", "Learning", "Solo", "Exploration", "Sole Programmer", "World Generation"],
-        "languages": ["C#"],
-        "id": "avonturio",
-        "title": "Avonturio",
-        "description": "A 2D console rpg game with randomly generated dungeon and enemies",
-        "information": [
-            "This was my first project outside of unity.",
-            "For a school asignment we had to make an rpg game in the console.",
-            "The requirement where simple: have a player, an enemy and a way to fight.",
-            "I wanted to challenge myself so i made a custom input system, dialogue system and output system.",
-            "I learnt alot about how visual studio works, debugging and how to structure a project without a game engine.",
-            "I'm quite thankfull for my school for giving me this assignment, it taught me alot."
-        ],
-        "syntax": "C#",
-        "features": [
-            "Custom input/output system",
-            "Custom dialogue system",
-            "Randomly generated dungeons",
-            "Random enemy names/properties"
-        ],
-        "thumbnail": "Images/Avonturio/MainScreen.png",
-        "images": ["Images/Avonturio/MainScreen.png", "Images/Avonturio/Dungeon.png", "Images/Avonturio/Dialogue.png"],
-        "codeCaption": "InputManager.cs - Custom input system",
-  "code": [
-"using System;",
-"using System.Collections.Generic;",
-"using System.Drawing;",
-"using System.Linq;",
-"using System.Security.Cryptography.X509Certificates;",
-"using System.Text;",
-"using System.Threading.Tasks;",
-"",
-"namespace Dev_les_Avonturio",
-"{",
-"    public static class InputManager",
-"    {",
-"        public static List<InputAction> inputActions = new List<InputAction>();",
-"",
-"",
-"        public static void AddInputAction(InputAction action)",
-"        {",
-"            inputActions.Add(action);",
-"        }",
-"        #region InputMethods",
-"        public static void CheckForInput()",
-"        {",
-"            while (true)",
-"            {",
-"                CheckIfValidInput(Console.ReadLine().ToLower());",
-"            }",
-"        }",
-"",
-"        //Checks whether or not the given string typed by the player is within the actions list, if so it will trigger the assigned method.",
-"        public static void CheckIfValidInput(string input)",
-"        {",
-"            foreach (var action in inputActions)",
-"            {",
-"                for (int i = 0; i < action.inputTriggers.Length; i++)",
-"                {",
-"                    if (input == action.inputTriggers[i])",
-"                    {",
-"                        action.triggerMethod();",
-"                    }",
-"                }",
-"            }",
-"        }",
-"        #endregion",
-"        public static void AddTriggers()",
-"        {",
-"            string[] infoTriggers =",
-"            {",
-"                \"Info\",",
-"                \"Help\",",
-"                \"Commands\"",
-"            };",
-"            InputAction infoAction = new InputAction(infoTriggers, DisplayManager.DisplayTriggers, \"Displays all commands\", \"DisplayCommands\");",
-"            AddInputAction(infoAction);",
-"",
-"            string[] dungeonTriggers =",
-"            {",
-"                \"Dungeon\",",
-"                \"dungeon\"",
-"            };",
-"",
-"            InputAction dungeonAction = new InputAction(dungeonTriggers, DungeonGenerator.GenerateDungeon, \"Generates an dungeon for you to explore\", \"Dungeon\");",
-"            AddInputAction(dungeonAction);",
-"",
-"            //ClearTriggers",
-"            string[] clearTriggers =",
-"            {",
-"                \"Clear\",",
-"                \"Reset\",",
-"                \"Fullwipe\",",
-"                \"empty\"",
-"            };",
-"            InputAction clearAction = new InputAction(clearTriggers, DisplayManager.FullClear, \"Clears the console\", \"Clear\");",
-"            AddInputAction(clearAction);",
-"            Inventory.AddInventoryTriggers();",
-"",
-"            //AttackTriggers",
-"            string[] attackTriggers =",
-"            {",
-"                \"Attack\",",
-"                \"attack\"",
-"            };",
-"            InputAction attackAction = new InputAction(attackTriggers, CombatManager.AttackCurrentEnemy, \"Attacks the current enemy\", \"Attack\");",
-"            AddInputAction(attackAction);",
-"",
-"            string[] enemyInfoTriggers =",
-"            {",
-"                \"EnemyInfo\",",
-"                \"EnemyHelp\",",
-"                \"EnemyStats\"",
-"            };",
-"            InputAction enemyInfoAction = new InputAction(enemyInfoTriggers, EnemyManager.PrintEnemyStats, \"Displays the current enemies stats\", \"DisplayEnemyInfo\");",
-"            AddInputAction(enemyInfoAction);",
-"",
-"            string[] tempHealTriggers =",
-"            {",
-"                \"Heal\",",
-"                \"heal\"",
-"            };",
-"            InputAction tempHealAction = new InputAction(tempHealTriggers, Player.Heal100, \"Heals the player, just for debugging\", \"debugHeal\");",
-"            AddInputAction(tempHealAction);",
-"        }",
-"",
-"        public static void DeleteTrigger(InputAction action)",
-"        {",
-"            if (inputActions.Contains(action)) { inputActions.Remove(action); }",
-"        }",
-"    }",
-"}"
-  ]
-
     }
 
 

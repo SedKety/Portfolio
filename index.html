@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nobe Mol — Game Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
 <section class="hero">
     <h1>Nobe Mol</h1>
     <p class="subtitle">Game Developer • Low-Level Enthusiast • Systems Programmer</p>
-    <a href="#projects" class="btn">ENTER PORTFOLIO</a>
+    <a id="see-projects-btn" href="#projects" class="btn">SEE PROJECTS</a>
 </section>
 
 <section id="about" class="about">
@@ -48,17 +49,17 @@
 <section id="projects" class="projects">
     <h2>&lt;Projects&gt;</h2>
     <div id="filter-bar" style="text-align:center;margin:60px 0;">
-        <button id="reset-btn" style="background:#39ff141a;border:1px solid #39ff14;color:#39ff14;padding:12px 30px;border-radius:50px;cursor:pointer;">All Projects</button>
+        <button id="reset-btn" style="background:#39ff141a;border:1px solid #39ff14;color:#39ff14;padding:10px 22px;border-radius:8px;cursor:pointer;">All Projects</button>
         <span style="margin:0 20px;color:#888;">// Filter:</span>
-        <div id="language-filters" style="display:inline-block;"></div>
-        <div id="tag-filters" style="display:inline-block;"></div>
+        <div id="language-filters"></div>
+        <div id="tag-filters"></div>
     </div>
     <div id="projects-grid" class="project-list"></div>
 </section>
 
 <section id="contact" class="contact">
     <h2>&lt;Contact&gt;</h2>
-    <p style="font-size:1.4rem;">nobe.mol@gmail.com • <a href="https://github.com/SedKety" style="color:var(--cyan);">GitHub</a> • <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/" style="color:var(--cyan);">LinkedIn</a></p>
+    <p style="font-size:1.4rem;">nobe.mol@gmail.com • <a href="https://github.com/SedKety" style="color:var(--cyan);" target="_blank" rel="noopener noreferrer">GitHub</a> • <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/" style="color:var(--cyan);" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
 </section>
 
 <footer>© 2025 Nobe Mol — Html done by ai due to lack of knowledge(for now) </footer>
@@ -69,24 +70,61 @@ const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = innerWidth; canvas.height = innerHeight;
 const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const fontSize = 16;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
+const fontSize = 16; 
+let columns = Math.floor(canvas.width / fontSize);
+let drops = new Array(columns).fill(0).map(()=> Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize))));
+// colors used to build a horizontal gradient across columns
+const gradientStops = ['#39ff14','#08f7fe','#9775fa'];
+
+function hexToRgb(hex){
+    const m = hex.replace('#','');
+    return [parseInt(m.substring(0,2),16), parseInt(m.substring(2,4),16), parseInt(m.substring(4,6),16)];
+}
+function lerp(a,b,t){ return a + (b-a)*t; }
+function lerpColor(c1,c2,t){
+    return [Math.round(lerp(c1[0],c2[0],t)),Math.round(lerp(c1[1],c2[1],t)),Math.round(lerp(c1[2],c2[2],t))];
+}
+function rgbToCss(rgb){ return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`; }
+
+const stopRgbs = gradientStops.map(hexToRgb);
+
+function getColorForColumn(i){
+    const t = i / Math.max(1, drops.length - 1);
+    // handle edge-cases explicitly
+    if (!stopRgbs || stopRgbs.length === 0) return 'rgb(255,255,255)';
+    if (t <= 0) return rgbToCss(stopRgbs[0]);
+    if (t >= 1) return rgbToCss(stopRgbs[stopRgbs.length - 1]);
+    // blend across the stops
+    const segments = stopRgbs.length - 1; // number of segments between stops
+    const segIndex = Math.floor(t * segments);
+    const localT = (t * segments) - segIndex;
+    const c1 = stopRgbs[segIndex];
+    const c2 = stopRgbs[Math.min(segIndex + 1, stopRgbs.length - 1)];
+    const c = lerpColor(c1, c2, localT);
+    return rgbToCss(c);
+}
 
 function draw() {
     ctx.fillStyle = 'rgba(10,10,15,0.05)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = '#39ff14';
     ctx.font = fontSize + 'px Fira Code';
     for (let i = 0; i < drops.length; i++) {
+        ctx.fillStyle = getColorForColumn(i);
         const char = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        // if the drop passed the bottom reset it to a small negative random start so it appears to "bake" and fall immediately
+        if (drops[i] * fontSize > canvas.height) drops[i] = Math.random() > 0.5 ? 0 : Math.floor(Math.random() * 20) - 20;
         drops[i]++;
     }
 }
 setInterval(draw, 40);
-window.addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; });
+window.addEventListener('resize', () => {
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    // rebuild drops to match new column count while preserving existing where possible
+    const newDrops = new Array(columns).fill(0).map((_,i) => (drops[i] !== undefined ? drops[i] : Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize)))));
+    drops = newDrops;
+});
 
 document.addEventListener('mousemove', e => {
     document.getElementById('cursor').style.left = e.clientX + 'px';
@@ -107,36 +145,97 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(projects => { allProjects = projects; buildFilterButtons(); renderProjects(allProjects); })
         .catch(() => grid.innerHTML = `<p style="color:#ff2e63;text-align:center;padding:100px;">[ERROR] projects.json missing</p>`);
 
-    function buildFilterButtons() {
+        function buildFilterButtons() {
         const languages = new Set(), tags = new Set();
         allProjects.forEach(p => {
             (p.languages || []).forEach(l => languages.add(l));
             (p.tags || []).forEach(t => tags.add(t));
         });
-        languageContainer.innerHTML = ""; tagContainer.innerHTML = "";
-        [...languages].sort().forEach(l => { const b = document.createElement("button"); b.textContent = l; b.className = "language-tag"; b.onclick = () => toggle(l,b); languageContainer.appendChild(b); });
-        [...tags].sort().forEach(t => { const b = document.createElement("button"); b.textContent = t; b.className = "tag"; b.onclick = () => toggle(t,b); tagContainer.appendChild(b); });
+        languageContainer.innerHTML = `<span class="filter-label">Languages:</span>`;
+        tagContainer.innerHTML = `<span class="filter-label">Tags:</span>`;
+        [...languages].sort().forEach(l => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.textContent = l;
+            b.className = "language-tag";
+            b.addEventListener('click', (e) => { e.stopPropagation(); toggle(l, b); });
+            languageContainer.appendChild(b);
+        });
+        [...tags].sort().forEach(t => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.textContent = t;
+            b.className = "tag";
+            b.addEventListener('click', (e) => { e.stopPropagation(); toggle(t, b); });
+            tagContainer.appendChild(b);
+        });
     }
 function toggle(v, b) {
     if (activeFilters.has(v)) { 
         activeFilters.delete(v); 
         b.style.background = ""; 
+        b.style.color = "";
     } else { 
         activeFilters.add(v);  
         // Use solid/semi-solid colors for visibility
-       b.style.background = b.classList.contains("language-tag") ? "#9775faaa" : "#08f7feaa"; 
+       if (b.classList.contains("language-tag")) { b.style.background = "rgba(151,117,250,0.88)"; b.style.color = "#000"; } else { b.style.background = "rgba(8,247,254,0.88)"; b.style.color = "#000"; }
 
     }
     applyFilters(); 
 }
 
-resetBtn.onclick = () => { 
-    activeFilters.clear(); 
-    document.querySelectorAll("#filter-bar button").forEach(b => {
-        if(b !== resetBtn) b.style.background = ""; 
-    }); 
-    renderProjects(allProjects); 
-};
+// ensure reset clears filters and visual state
+resetBtn.addEventListener('click', () => {
+    activeFilters.clear();
+    document.querySelectorAll('#filter-bar button.language-tag, #filter-bar button.tag').forEach(b => {
+        b.style.background = '';
+        b.style.color = '';
+    });
+    renderProjects(allProjects);
+});
+
+    // unified easing helper used for header nav and hero button
+    function easeInOut(t){ return t<0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
+    function animatedScrollTo(targetY, duration = 900){
+        const start = window.scrollY || window.pageYOffset;
+        const delta = targetY - start;
+        let startTime = null;
+        function step(time){
+            if (!startTime) startTime = time;
+            const t = Math.min(1, (time - startTime) / duration);
+            window.scrollTo(0, Math.round(start + delta * easeInOut(t)));
+            if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // hero button (id used for reliability)
+    const heroBtn = document.getElementById('see-projects-btn');
+    const headerEl = document.querySelector('.navbar');
+    const headerOffset = headerEl ? headerEl.offsetHeight + 12 : 0;
+    if (heroBtn) {
+        heroBtn.addEventListener('click', function(e){
+            e.preventDefault(); e.stopPropagation();
+            const target = document.getElementById('projects'); if (!target) return;
+            let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+            end = Math.max(0, end - headerOffset);
+            animatedScrollTo(end, 900);
+        });
+    }
+
+    // smooth-scrolling for header nav links
+    document.querySelectorAll('header .navbar a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e){
+            const href = a.getAttribute('href');
+            if (!href || href.charAt(0) !== '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault(); e.stopPropagation();
+            let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+            end = Math.max(0, end - headerOffset);
+            animatedScrollTo(end, 800);
+        });
+    });
 
     function applyFilters() { renderProjects(activeFilters.size === 0 ? allProjects : allProjects.filter(p => (p.languages||[]).some(l=>activeFilters.has(l)) || (p.tags||[]).some(t=>activeFilters.has(t)))); }
     function renderProjects(projects) {
@@ -147,13 +246,43 @@ resetBtn.onclick = () => {
                 <div class="card-content">
                     <h3>${p.title}</h3>
                     <p>${p.description || "No description yet."}</p>
-                    ${p.languages?.length ? `<div class="tags languages">${p.languages.map(l=>`<span class="language-tag">${l}</span>`).join("")}</div>` : ""}
-                    ${p.tags?.length ? `<div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>` : ""}
+                    ${p.languages?.length ? `<div class="tags languages"><span class="label">Languages:</span>${p.languages.map(l=>`<span class="language-tag">${l}</span>`).join("")}</div>` : ""}
+                    ${p.tags?.length ? `<div class="tags"><span class="label">Tags:</span>${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>` : ""}
                     <a href="project.html?id=${p.id}" class="btn-small">VIEW PROJECT</a>
                 </div>
             </div>
         `).join("");
     }
+
+    // Event delegation fallback: ensure clicks on anchors and filter buttons always work
+    document.addEventListener('click', (e) => {
+        // handle any in-page anchors (header links, hero button)
+        const a = e.target.closest('a[href^="#"]');
+        if (a) {
+            const href = a.getAttribute('href');
+            if (href && href.charAt(0) === '#') {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault(); e.stopPropagation();
+                    let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+                    const headerEl = document.querySelector('.navbar');
+                    const headerOffset = headerEl ? headerEl.offsetHeight + 12 : 0;
+                    end = Math.max(0, end - headerOffset);
+                    animatedScrollTo(end, 800);
+                    return;
+                }
+            }
+        }
+
+        // handle filter buttons inside #filter-bar (delegated)
+        const btn = e.target.closest('#filter-bar button.language-tag, #filter-bar button.tag');
+        if (btn) {
+            e.preventDefault(); e.stopPropagation();
+            const val = btn.textContent.trim();
+            toggle(val, btn);
+            return;
+        }
+    });
 });
 </script>
 </body>

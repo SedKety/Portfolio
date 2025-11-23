@@ -213,13 +213,13 @@ body {
     box-shadow: inset 0 0 20px rgba(151,117,250,0.3);
     counter-reset: linenumber;
 }
-.code-box span {
+.code-box > span {
     display: block;
     white-space: pre;
     counter-increment: linenumber;
     position: relative;
 }
-.code-box span::before {
+.code-box > span::before {
     content: counter(linenumber);
     position: absolute;
     left: -40px;
@@ -227,6 +227,24 @@ body {
     text-align: right;
     color: #555;
 }
+
+/* Syntax highlighting tokens (palette tuned to screenshot) */
+.token.keyword { color: #74c0fc; font-weight:700; }    /* blue-ish keywords */
+.token.primitive { color: #ffb86b; font-weight:700; }  /* warm primitives: int/float/etc. */
+.token.type { color: #ffd580; font-weight:700; }      /* yellow types */
+.token.classname { color: #7befff; font-weight:700; }  /* class/struct names (adjusted to match screenshot) */
+.token.function { color: #7befff; font-weight:700; }   /* cyan functions */
+.token.namespace { color: #74c0fc; }                   /* same blue for namespaces */
+.token.template { color: #a2f6c1; }                    /* template args */
+.token.string { color: #e6db74; }                      /* strings (warm) */
+.token.comment { color: var(--green); font-style: italic; } /* green comments */
+.token.number { color: #ffb86b; }                      /* numbers match primitives */
+.token.directive { color: #66d9ef; }                   /* preprocessor */
+.token.library { color: #ff9ac1; font-weight:700; }     /* includes / library names */
+.token.operator { color: #f8f8f2; }                    /* punctuation */
+.token.type { color: #1aa67f; font-weight:700; }      /* darker teal for types */
+.token.classname { color: #1aa67f; font-weight:700; }  /* darker teal for class/struct names */
+.token.namespace { color: #1aa67f; }                   /* darker teal for namespace */
 
 /* Bottom Image Preview */
 #image-preview {
@@ -401,10 +419,154 @@ fetch("projects.json")
         const codeBox = document.getElementById("code-snippet");
         if (project.code && project.code.length) {
             const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
-            codeBox.innerHTML = lines.map(line => {
-                const escaped = line.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-                return `<span>${escaped || "&nbsp;"}</span>`;
-            }).join("");
+            const syntax = (project.syntax || project.syntaxType || '').toLowerCase();
+
+            const keywordSets = {
+                csharp: new Set((`abstract as base bool break byte case catch char checked class const continue decimal default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long namespace new null object operator out override params private protected public readonly ref return sbyte sealed short sizeof stackalloc static string struct switch this throw true try typeof uint ulong unchecked unsafe ushort using virtual void volatile while async await var`).split(/\s+/)),
+                cpp: new Set((`alignas alignof asm auto bool break case catch char class const continue decltype default delete do double dynamic_cast else enum explicit export extern false float for friend goto if inline int long mutable namespace new noexcept nullptr operator private protected public register reinterpret_cast return short signed sizeof static_cast static struct switch template this throw true try typedef typeid typename union unsigned using virtual void volatile while`).split(/\s+/)),
+                asm: new Set((`mov add sub inc dec cmp jmp je jne jl jg call ret push pop db dw dd section segment org end nop xor and or not shl shr loop cmp test lea stos lods`.split(/\s+/)) )
+            };
+
+            const primitiveTypes = new Set(['int','float','double','char','short','long','bool','void','string','size_t','auto','unsigned','signed']);
+
+            function escapeHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+            function isIdentifierChar(ch){ return /[A-Za-z0-9_:\.]/.test(ch); }
+
+            function highlightLine(line){
+                // prepare a parsing-friendly string: unescape common HTML entities
+                const s = line.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+                let i = 0, out = '';
+                const trimmed = s.trimStart();
+
+                // whole-line ASM comment (only if syntax is ASM)
+                if (syntax.includes('asm') && trimmed.startsWith(';')){
+                    return `<span class="token comment">${escapeHtml(s)}</span>`;
+                }
+
+                // directives (#include, #define, etc.) — highlight directive and library
+                if (trimmed.startsWith('#')){
+                    const leading = s.slice(0, s.indexOf('#'));
+                    const match = trimmed.match(/^#\s*(\w+)(?:\s+(.*))?/);
+                    if (match){
+                        const directive = match[1];
+                        const rest = match[2] || '';
+                        // highlight includes specially
+                        const incMatch = rest.match(/^(?:include)\s*[<\"]([^>\"]+)[>\"]/i);
+                        if (incMatch){
+                            const lib = escapeHtml(incMatch[1]);
+                            const before = rest.slice(0, rest.indexOf(incMatch[0]));
+                            return `${escapeHtml(leading)}<span class="token directive">#${escapeHtml(directive)}</span> ${escapeHtml(before)}include <span class=\"token library\">${lib}</span>`;
+                        }
+                        return `${escapeHtml(leading)}<span class="token directive">#${escapeHtml(directive)}</span> ${escapeHtml(rest)}`;
+                    }
+                }
+
+                // token loop (operate on unescaped `s` for parsing, escape when outputting)
+                let lastTokenType = null;
+                while(i < s.length){
+                    const ch = s[i];
+                    // ASM inline/line comment starting with ';' (only for asm syntax)
+                    if (syntax.includes('asm') && ch === ';'){
+                        const rest = escapeHtml(s.slice(i));
+                        out += `<span class="token comment">${rest}</span>`; break;
+                    }
+                    // C-style single-line comment
+                    if (ch === '/' && s[i+1] === '/'){
+                        const rest = escapeHtml(s.slice(i));
+                        out += `<span class="token comment">${rest}</span>`; break;
+                    }
+                    // block comment
+                    if (ch === '/' && s[i+1] === '*'){
+                        const end = s.indexOf('*/', i+2);
+                        if (end !== -1){
+                            const chunk = escapeHtml(s.slice(i, end+2));
+                            out += `<span class="token comment">${chunk}</span>`; i = end+2; continue;
+                        } else { const rest = escapeHtml(s.slice(i)); out += `<span class="token comment">${rest}</span>`; break; }
+                    }
+                    // strings
+                    if (ch === '"' || ch === "'"){
+                        const quote = ch; let j = i+1; let esc = false;
+                        while(j < s.length){ if (!esc && s[j] === quote){ j++; break; } if (!esc && s[j] === '\\'){ esc = true; j++; continue; } esc = false; j++; }
+                        out += `<span class=\"token string\">${escapeHtml(s.slice(i,j))}</span>`; i = j; lastTokenType = 'string'; continue;
+                    }
+                    // numbers
+                    if (/\d/.test(ch)){
+                        const m = s.slice(i).match(/^\d+(?:\.\d+)?/);
+                        if (m){ out += `<span class=\"token number\">${escapeHtml(m[0])}</span>`; i += m[0].length; lastTokenType = 'number'; continue; }
+                    }
+                    // identifiers (names, namespaces, templates)
+                    if (/[A-Za-z_]/.test(ch)){
+                        let j = i+1; while(j < s.length && isIdentifierChar(s[j])) j++;
+                        const ident = s.slice(i,j);
+                        const esc = escapeHtml(ident);
+                        const ks = (syntax.includes('cpp')||syntax.includes('c++') ? keywordSets.cpp : (syntax.includes('asm') ? keywordSets.asm : keywordSets.csharp));
+
+                        // handle dotted qualified names like System.Collections.Generic
+                        if (ident.includes('.')){
+                            const parts = ident.split('.');
+                            out += parts.map(p => `<span class=\"token namespace\">${escapeHtml(p)}</span>`).join('.');
+                            i = j; lastTokenType = 'namespace'; continue;
+                        }
+
+                        // detect qualified names like std::vector or MyNamespace::MyClass
+                        if (ident.includes('::')){
+                            const parts = ident.split('::');
+                            const ns = parts.slice(0,-1).join('::');
+                            const nm = parts[parts.length-1];
+                            out += `<span class=\"token namespace\">${escapeHtml(ns)}</span>::` + `<span class=\"token type\">${escapeHtml(nm)}</span>`;
+                            i = j; lastTokenType = 'type'; continue;
+                        }
+
+                        // primitives (int/float/string/etc.) take precedence
+                        const lowerIdent = ident.toLowerCase();
+                        if (primitiveTypes.has(lowerIdent)){
+                            out += `<span class=\"token primitive\">${esc}</span>`; i = j; lastTokenType = 'primitive'; continue;
+                        }
+                        // keywords
+                        if (ks && ks.has(ident)){
+                            out += `<span class=\"token keyword\">${esc}</span>`; i = j; lastTokenType = 'keyword'; continue;
+                        }
+
+                        // detect template usage like vector<int> — allow spaces between name and '<'
+                        let m = j; while(m < s.length && /\s/.test(s[m])) m++;
+                        if (s[m] === '<'){
+                            // avoid false positive for comparisons like 'j < 9' where identifier is a single-letter variable
+                            if (!(ident.length === 1 && /[a-z]/.test(ident))){
+                                // find matching > roughly (not full parser)
+                                let k = m+1, depth = 1; while(k < s.length && depth > 0){ if (s[k] === '<') depth++; else if (s[k] === '>') depth--; k++; }
+                                const tplRaw = s.slice(i, k);
+                                // separate name and template args visually
+                                const nameMatch = tplRaw.match(/^([^<\s]+)/);
+                                const name = nameMatch ? nameMatch[1] : tplRaw;
+                                const args = tplRaw.slice(name.length);
+                                out += `<span class=\"token type\">${escapeHtml(name)}</span><span class=\"token template\">${escapeHtml(args)}</span>`;
+                                i = k; lastTokenType = 'type'; continue;
+                            }
+                        }
+
+                        // function detection: next non-space char is '('
+                        let k = j; while(k < s.length && /\s/.test(s[k])) k++; const nextChar = s[k] || '';
+                        if (nextChar === '('){ out += `<span class=\"token function\">${esc}</span>`; i = j; lastTokenType = 'function'; continue; }
+
+                        // capitalized names likely types/classes
+                        if (/^[A-Z][A-Za-z0-9_]*$/.test(ident)){
+                            out += `<span class=\"token classname\">${esc}</span>`; i = j; lastTokenType = 'classname'; continue;
+                        }
+
+                        // fallback: namespace-like lower-case (std), or plain identifier
+                        if (ident === 'std' || ident === 'std::'){
+                            out += `<span class=\"token namespace\">${esc}</span>`; i = j; lastTokenType = 'namespace'; continue;
+                        }
+
+                        out += esc; i = j; lastTokenType = 'ident'; continue;
+                    }
+                    // operators / punctuation
+                    out += escapeHtml(s[i]); i++; if (!/\s/.test(ch)) lastTokenType = 'op';
+                }
+                return out || '&nbsp;';
+            }
+
+            codeBox.innerHTML = lines.map(l => `<span>${highlightLine(l) || '&nbsp;'}</span>`).join('');
         } else {
             codeBox.innerHTML = '<span style="color:#8b949e;font-style:italic;">No code snippet available</span>';
         }
