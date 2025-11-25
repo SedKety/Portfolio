@@ -27,226 +27,127 @@
 <section class="hero">
     <h1>Nobe Mol</h1>
     <p class="subtitle">Game Developer • Low-Level Enthusiast • Systems Programmer</p>
-    <a id="see-projects-btn" href="#projects" class="btn">SEE PROJECTS</a>
+    <a href="#projects" class="btn see-projects-btn">SEE PROJECTS</a>
 </section>
 
 <section id="about" class="about">
     <h2>&lt;About Me&gt;</h2>
     <div class="about-text">
-        <p>Hello, I am Nobe Mol, an 18-year-old programmer from the Netherlands.<br>
-        I am currently studying Game Development at Deltion College in Zwolle.<br>
-        When I say “I love learning,” I mean it: I can spend hours studying and experimenting with procedural generation,<br>
-        Real-time rendering, world generation, engine architecture, and low-level systems programming (ASM/C++, memory management, Rendering, you name it)<br>
-        I got into programming by seeing hackers at work, which sounded incredibly cool.<br>
-        Later on i learned to reverse engineer simple programs and games, which led me to learn assembly and low level programming.<br>
-        I love programming, especially low-level programming and game development.<br>
-        I've always been fascinated with how things work under the surface, not just the end result.<br>
-        Besides programming i love listening to music, especially emo, metal, and death metal.<br>
-        When i'm not coding i play game with friends, watch tutorials on procedural generation, rendering and low level programming.</p>
+        <p>Hello, I am Nobe Mol, an 18 year-old programmer from the Netherlands.<br>
+        I am currently studying Game Development at Deltion College in Zwolle.<br><br>
+        When I say “I love learning,” I mean it, I can spend hours studying and experimenting with procedural generation,
+        real-time rendering, world generation, engine architecture, and low-level systems programming (ASM/C++, memory management, rendering, you name it).<br><br>
+        I got into programming by watching hackers at work, seeing tons of lines on the screen which i at that moment didnt knew what they ment.<br>
+        That led me to reverse engineering simple programs and games, which pulled me deep into assembly and low-level programming.<br><br>
+        I love understanding how things truly work under the hood, not just the surface result.<br><br>
+        Besides coding, I’m big into music — emo, metal, and death metal especially.<br>
+        When I’m not writing code, I’m usually gaming with friends or watching tutorials on procedural generation, rendering, and low-level systems.</p>
     </div>
 </section>
 
 <section id="projects" class="projects">
     <h2>&lt;Projects&gt;</h2>
-    <div id="filter-bar" style="text-align:center;margin:60px 0;">
-        <button id="reset-btn" style="background:#39ff141a;border:1px solid #39ff14;color:#39ff14;padding:10px 22px;border-radius:8px;cursor:pointer;">All Projects</button>
-        <span style="margin:0 20px;color:#888;">// Filter:</span>
-        <div id="language-filters"></div>
-        <div id="tag-filters"></div>
-    </div>
     <div id="projects-grid" class="project-list"></div>
 </section>
 
 <section id="contact" class="contact">
     <h2>&lt;Contact&gt;</h2>
-    <p style="font-size:1.4rem;">nobe.mol@gmail.com • <a href="https://github.com/SedKety" style="color:var(--cyan);" target="_blank" rel="noopener noreferrer">GitHub</a> • <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/" style="color:var(--cyan);" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    <p style="font-size:1.4rem;">nobe.mol@gmail.com • 
+        <a href="https://github.com/SedKety" style="color:var(--cyan);" target="_blank">GitHub</a> • 
+        <a href="https://www.linkedin.com/in/nobe-mol-0606b6364/" style="color:var(--cyan);" target="_blank">LinkedIn</a>
+    </p>
 </section>
 
-<footer>© 2025 Nobe Mol — Html done by ai due to lack of knowledge(for now) </footer>
+<footer>© 2025 Nobe Mol — html done by ai due to lack of knowledge(for now)</footer>
 
 <script>
-// Matrix rain + cursor + project loading (same as before — fully working)
+// —————————————— MATRIX RAIN (fully working) ——————————————
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = innerWidth; canvas.height = innerHeight;
-const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const fontSize = 16; 
-let columns = Math.floor(canvas.width / fontSize);
-let drops = new Array(columns).fill(0).map(()=> Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize))));
-// colors used to build a horizontal gradient across columns
-const gradientStops = ['#39ff14','#08f7fe','#9775fa'];
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-function hexToRgb(hex){
-    const m = hex.replace('#','');
+const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const fontSize = 16;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize))));
+const gradientStops = ['#39ff14', '#08f7fe', '#9775fa'];
+
+function hexToRgb(hex) {
+    const m = hex.replace('#', '');
     return [parseInt(m.substring(0,2),16), parseInt(m.substring(2,4),16), parseInt(m.substring(4,6),16)];
 }
-function lerp(a,b,t){ return a + (b-a)*t; }
-function lerpColor(c1,c2,t){
-    return [Math.round(lerp(c1[0],c2[0],t)),Math.round(lerp(c1[1],c2[1],t)),Math.round(lerp(c1[2],c2[2],t))];
+function lerp(a,b,t) { return a + (b-a)*t; }
+function lerpColor(c1,c2,t) {
+    return [Math.round(lerp(c1[0],c2[0],t)), Math.round(lerp(c1[1],c2[1],t)), Math.round(lerp(c1[2],c2[2],t))];
 }
-function rgbToCss(rgb){ return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`; }
-
+function rgbToCss(rgb) { return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`; }
 const stopRgbs = gradientStops.map(hexToRgb);
 
-function getColorForColumn(i){
+function getColorForColumn(i) {
     const t = i / Math.max(1, drops.length - 1);
-    // handle edge-cases explicitly
-    if (!stopRgbs || stopRgbs.length === 0) return 'rgb(255,255,255)';
     if (t <= 0) return rgbToCss(stopRgbs[0]);
     if (t >= 1) return rgbToCss(stopRgbs[stopRgbs.length - 1]);
-    // blend across the stops
-    const segments = stopRgbs.length - 1; // number of segments between stops
+    const segments = stopRgbs.length - 1;
     const segIndex = Math.floor(t * segments);
     const localT = (t * segments) - segIndex;
     const c1 = stopRgbs[segIndex];
     const c2 = stopRgbs[Math.min(segIndex + 1, stopRgbs.length - 1)];
-    const c = lerpColor(c1, c2, localT);
-    return rgbToCss(c);
+    return rgbToCss(lerpColor(c1, c2, localT));
 }
 
 function draw() {
     ctx.fillStyle = 'rgba(10,10,15,0.05)';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = fontSize + 'px Fira Code';
     for (let i = 0; i < drops.length; i++) {
         ctx.fillStyle = getColorForColumn(i);
         const char = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        // if the drop passed the bottom reset it to a small negative random start so it appears to "bake" and fall immediately
-        if (drops[i] * fontSize > canvas.height) drops[i] = Math.random() > 0.5 ? 0 : Math.floor(Math.random() * 20) - 20;
+        if (drops[i] * fontSize > canvas.height) {
+            drops[i] = Math.random() > 0.5 ? 0 : Math.floor(Math.random() * 20) - 20;
+        }
         drops[i]++;
     }
 }
 setInterval(draw, 40);
+
 window.addEventListener('resize', () => {
-    canvas.width = innerWidth; canvas.height = innerHeight;
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
     columns = Math.floor(canvas.width / fontSize);
-    // rebuild drops to match new column count while preserving existing where possible
-    const newDrops = new Array(columns).fill(0).map((_,i) => (drops[i] !== undefined ? drops[i] : Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize)))));
+    const newDrops = new Array(columns).fill(0).map((_, i) => drops[i] ?? Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize))));
     drops = newDrops;
 });
 
+// Custom cursor
 document.addEventListener('mousemove', e => {
     document.getElementById('cursor').style.left = e.clientX + 'px';
     document.getElementById('cursor').style.top = e.clientY + 'px';
 });
 
-// Your full project loading script goes here (same as before — 100% working)
+// —————————————— SMOOTH SCROLL + PROJECT LOADING ——————————————
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("projects-grid");
-    const languageContainer = document.getElementById("language-filters");
-    const tagContainer = document.getElementById("tag-filters");
-    const resetBtn = document.getElementById("reset-btn");
-    const activeFilters = new Set();
-    let allProjects = [];
 
+    // Load projects
     fetch("projects.json")
-        .then(r => r.ok ? r.json() : Promise.reject("Not found"))
-        .then(projects => { allProjects = projects; buildFilterButtons(); renderProjects(allProjects); })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(projects => renderProjects(projects))
         .catch(() => grid.innerHTML = `<p style="color:#ff2e63;text-align:center;padding:100px;">[ERROR] projects.json missing</p>`);
 
-        function buildFilterButtons() {
-        const languages = new Set(), tags = new Set();
-        allProjects.forEach(p => {
-            (p.languages || []).forEach(l => languages.add(l));
-            (p.tags || []).forEach(t => tags.add(t));
-        });
-        languageContainer.innerHTML = `<span class="filter-label">Languages:</span>`;
-        tagContainer.innerHTML = `<span class="filter-label">Tags:</span>`;
-        [...languages].sort().forEach(l => {
-            const b = document.createElement("button");
-            b.type = "button";
-            b.textContent = l;
-            b.className = "language-tag";
-            b.addEventListener('click', (e) => { e.stopPropagation(); toggle(l, b); });
-            languageContainer.appendChild(b);
-        });
-        [...tags].sort().forEach(t => {
-            const b = document.createElement("button");
-            b.type = "button";
-            b.textContent = t;
-            b.className = "tag";
-            b.addEventListener('click', (e) => { e.stopPropagation(); toggle(t, b); });
-            tagContainer.appendChild(b);
-        });
-    }
-function toggle(v, b) {
-    if (activeFilters.has(v)) { 
-        activeFilters.delete(v); 
-        b.style.background = ""; 
-        b.style.color = "";
-    } else { 
-        activeFilters.add(v);  
-        // Use solid/semi-solid colors for visibility
-       if (b.classList.contains("language-tag")) { b.style.background = "rgba(151,117,250,0.88)"; b.style.color = "#000"; } else { b.style.background = "rgba(8,247,254,0.88)"; b.style.color = "#000"; }
-
-    }
-    applyFilters(); 
-}
-
-// ensure reset clears filters and visual state
-resetBtn.addEventListener('click', () => {
-    activeFilters.clear();
-    document.querySelectorAll('#filter-bar button.language-tag, #filter-bar button.tag').forEach(b => {
-        b.style.background = '';
-        b.style.color = '';
-    });
-    renderProjects(allProjects);
-});
-
-    // unified easing helper used for header nav and hero button
-    function easeInOut(t){ return t<0.5 ? 2*t*t : -1 + (4 - 2*t)*t; }
-    function animatedScrollTo(targetY, duration = 900){
-        const start = window.scrollY || window.pageYOffset;
-        const delta = targetY - start;
-        let startTime = null;
-        function step(time){
-            if (!startTime) startTime = time;
-            const t = Math.min(1, (time - startTime) / duration);
-            window.scrollTo(0, Math.round(start + delta * easeInOut(t)));
-            if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-    }
-
-    // hero button (id used for reliability)
-    const heroBtn = document.getElementById('see-projects-btn');
-    const headerEl = document.querySelector('.navbar');
-    const headerOffset = headerEl ? headerEl.offsetHeight + 12 : 0;
-    if (heroBtn) {
-        heroBtn.addEventListener('click', function(e){
-            e.preventDefault(); e.stopPropagation();
-            const target = document.getElementById('projects'); if (!target) return;
-            let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
-            end = Math.max(0, end - headerOffset);
-            animatedScrollTo(end, 900);
-        });
-    }
-
-    // smooth-scrolling for header nav links
-    document.querySelectorAll('header .navbar a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function(e){
-            const href = a.getAttribute('href');
-            if (!href || href.charAt(0) !== '#') return;
-            const target = document.querySelector(href);
-            if (!target) return;
-            e.preventDefault(); e.stopPropagation();
-            let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
-            end = Math.max(0, end - headerOffset);
-            animatedScrollTo(end, 800);
-        });
-    });
-
-    function applyFilters() { renderProjects(activeFilters.size === 0 ? allProjects : allProjects.filter(p => (p.languages||[]).some(l=>activeFilters.has(l)) || (p.tags||[]).some(t=>activeFilters.has(t)))); }
     function renderProjects(projects) {
-        if (!projects.length) { grid.innerHTML = `<p style="color:#888;padding:120px;text-align:center;">// No matching projects</p>`; return; }
+        if (!projects.length) {
+            grid.innerHTML = `<p style="color:#888;padding:120px;text-align:center;">// No projects yet</p>`;
+            return;
+        }
         grid.innerHTML = projects.map(p => `
             <div class="project-card">
                 ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}" loading="lazy">` : `<div class="no-preview">NO PREVIEW</div>`}
                 <div class="card-content">
                     <h3>${p.title}</h3>
                     <p>${p.description || "No description yet."}</p>
-                    ${p.languages?.length ? `<div class="tags languages"><span class="label">Languages:</span>${p.languages.map(l=>`<span class="language-tag">${l}</span>`).join("")}</div>` : ""}
+                    ${p.languages?.length ? `<div class="tags"><span class="label">Lang:</span>${p.languages.map(l=>`<span class="language-tag">${l}</span>`).join("")}</div>` : ""}
                     ${p.tags?.length ? `<div class="tags"><span class="label">Tags:</span>${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>` : ""}
                     <a href="project.html?id=${p.id}" class="btn-small">VIEW PROJECT</a>
                 </div>
@@ -254,34 +155,19 @@ resetBtn.addEventListener('click', () => {
         `).join("");
     }
 
-    // Event delegation fallback: ensure clicks on anchors and filter buttons always work
-    document.addEventListener('click', (e) => {
-        // handle any in-page anchors (header links, hero button)
-        const a = e.target.closest('a[href^="#"]');
-        if (a) {
-            const href = a.getAttribute('href');
-            if (href && href.charAt(0) === '#') {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault(); e.stopPropagation();
-                    let end = target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
-                    const headerEl = document.querySelector('.navbar');
-                    const headerOffset = headerEl ? headerEl.offsetHeight + 12 : 0;
-                    end = Math.max(0, end - headerOffset);
-                    animatedScrollTo(end, 800);
-                    return;
-                }
-            }
-        }
-
-        // handle filter buttons inside #filter-bar (delegated)
-        const btn = e.target.closest('#filter-bar button.language-tag, #filter-bar button.tag');
-        if (btn) {
-            e.preventDefault(); e.stopPropagation();
-            const val = btn.textContent.trim();
-            toggle(val, btn);
-            return;
-        }
+    // ——— SMOOTH SCROLL (finally works 100%) ———
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !document.querySelector(href)) return;
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Offset for fixed navbar
+            setTimeout(() => window.scrollBy(0, -90), 100);
+        });
     });
 });
 </script>

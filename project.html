@@ -7,277 +7,330 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
 <style>
+/* Core overrides for project page */
 :root {
-    --bg: #0a0a0f;
-    --text: #e6edf3;
     --accent: #9775fa;
-    --accent2: #748ffc;
-    --cyan: #08f7fe;
-    --green: #39ff14;
-    --glow: rgba(151,117,250,0.6);
+    --accent2: #8f7af0;
+    --cyan: #4fdced;
+    --glow: rgba(151,117,250,0.4);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html, body { height: 100%; overflow-x: hidden; }
-
-/* Hide scrollbar (Chrome, Edge, Safari) */
-body::-webkit-scrollbar { display: none; }
-
-/* Hide scrollbar (Firefox) */
-body { scrollbar-width: none; }
-
-/* General scroll hiding */
-body, .code-box, #image-gallery {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-body::-webkit-scrollbar,
-.code-box::-webkit-scrollbar,
-#image-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Fira Code', monospace;
-    line-height: 1.8;
-    position: relative;
-}
-
-/* MATRIX CANVAS */
-#matrix-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Loading Screen */
-.loading-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 2rem;
-    color: var(--cyan);
-    text-align: center;
-    z-index: 5;
-    position: relative;
-}
-
-/* Project Container */
 .project-detail-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 100px 20px;
-    gap: 40px;
+    padding: 120px 40px 80px;
+    gap: 50px;
     position: relative;
     z-index: 5;
 }
 
-/* Main Content */
 .project-main {
     flex: 1 1 800px;
-    background: rgba(20,20,35,0.85);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 0 60px rgba(151,117,250,0.4);
+    background: rgba(20,20,35,0.75);
+    border-radius: 12px;
+    padding: 50px;
+    border: 1px solid rgba(151,117,250,0.3);
+    box-shadow: 0 0 60px rgba(151,117,250,0.25);
+    width: 100%; /* Ensures consistent width */
+    box-sizing: border-box;
 }
+
 .project-main h2 {
-    font-size: 3rem;
-    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 30px;
 }
+
 .project-main h3 {
     font-size: 1.8rem;
     color: var(--cyan);
-    margin: 20px 0 10px 0;
-    text-shadow: 0 0 10px var(--cyan);
-}
-.project-main p {
-    color: #b0b0b0;
-    margin-bottom: 15px;
-    line-height: 1.8;
+    margin: 40px 0 15px;
 }
 
-/* Tags */
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+.project-main p { 
+    color: #b0b0b0; 
+    margin-bottom: 20px; 
+    line-height: 1.9; 
+    font-size: 1.1rem; 
 }
-.tag, .language-tag {
+
+.tags { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 12px; 
+    margin: 25px 0; 
+}
+
+.language-tag, .tag {
     padding: 8px 16px;
-    border-radius: 50px;
-    font-size: 0.85rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
     font-weight: 600;
-    transition: 0.3s;
-    cursor: default;
-}
-.language-tag {
-    background: rgba(151,117,250,0.35);
-    color: var(--accent);
-    border: 1px solid var(--accent2);
-}
-.tag {
-    background: rgba(8,247,254,0.25);
-    color: var(--cyan);
-    border: 1px solid var(--cyan);
-}
-.tag:hover, .language-tag:hover {
-    background: var(--cyan);
-    color: #000;
 }
 
-/* Gallery */
-#image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-.project-image {
-    max-width: 380px;
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(151,117,250,0.3);
-    background: #111;
-    cursor: pointer;
-    transition: 0.3s ease;
+.language-tag { 
+    background: rgba(143,122,240,0.14); 
+    color: var(--accent2); 
+    border: 1px solid rgba(143,122,240,0.22); 
 }
 
-/* Features */
-#feature-list {
-    list-style: disc;
-    padding-left: 20px;
-    color: #b0b0b0;
+.tag { 
+    background: rgba(79,220,237,0.08); 
+    color: var(--cyan); 
+    border: 1px solid rgba(79,220,237,0.14); 
 }
 
-/* Buttons */
 .button-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 20px;
+    margin-top: 40px;
 }
+
 .btn-small {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 30px;
+    gap: 10px;
+    padding: 14px 32px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: white;
     font-weight: 700;
-    border-radius: 50px;
+    border-radius: 8px;
     box-shadow: 0 10px 30px var(--glow);
-    font-size: 1rem;
+    text-decoration: none;
     transition: all 0.4s;
+    font-size: 1rem;
 }
-.btn-small img { width: 20px; height: 20px; }
 
-#matrix-canvas {
-  opacity: 0.25;
+.btn-small:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 20px 50px var(--glow); 
+}
+
+.btn-small img { 
+    width: 22px; 
+    height: 22px; 
+    filter: brightness(0) invert(1); 
 }
 
 /* Sidebar */
 .project-sidebar {
-    flex: 0 0 400px;
-    background: rgba(20,20,35,0.85);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 0 60px rgba(151,117,250,0.3);
-    height: fit-content;
+    flex: 0 0 420px;
+    background: rgba(20,20,35,0.75);
+    border-radius: 12px;
+    padding: 40px;
+    border: 1px solid rgba(151,117,250,0.3);
+    box-shadow: 0 0 60px rgba(151,117,250,0.25);
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
-/* Code Box */
+#code-spotlight-title {
+    font-size: 1.8rem;
+    color: var(--cyan);
+    margin-bottom: 20px;
+}
+
 .code-box {
     background: #111;
-    padding: 20px 20px 20px 50px;
+    padding: 20px 20px 20px 60px;
     border-radius: 12px;
     overflow-x: auto;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #8b949e;
-    max-height: 500px;
-    box-shadow: inset 0 0 20px rgba(151,117,250,0.3);
+    max-height: 600px;
+    box-shadow: inset 0 0 20px rgba(151,117,250,0.2);
     counter-reset: linenumber;
+    width: 100%;
+    box-sizing: border-box;
 }
-.code-box > span {
+
+.code-box span {
     display: block;
     white-space: pre;
     counter-increment: linenumber;
     position: relative;
 }
-.code-box > span::before {
+
+.code-box span::before {
     content: counter(linenumber);
     position: absolute;
-    left: -40px;
-    width: 30px;
+    left: -50px;
+    width: 40px;
     text-align: right;
     color: #555;
 }
 
-/* Syntax highlighting tokens (palette tuned to screenshot) */
-.token.keyword { color: #74c0fc; font-weight:700; }    /* blue-ish keywords */
-.token.primitive { color: #ffb86b; font-weight:700; }  /* warm primitives: int/float/etc. */
-.token.type { color: #ffd580; font-weight:700; }      /* yellow types */
-.token.classname { color: #7befff; font-weight:700; }  /* class/struct names (adjusted to match screenshot) */
-.token.function { color: #7befff; font-weight:700; }   /* cyan functions */
-.token.namespace { color: #74c0fc; }                   /* same blue for namespaces */
-.token.template { color: #a2f6c1; }                    /* template args */
-.token.string { color: #e6db74; }                      /* strings (warm) */
-.token.comment { color: var(--green); font-style: italic; } /* green comments */
-.token.number { color: #ffb86b; }                      /* numbers match primitives */
-.token.directive { color: #66d9ef; }                   /* preprocessor */
-.token.library { color: #ff9ac1; font-weight:700; }     /* includes / library names */
-.token.operator { color: #f8f8f2; }                    /* punctuation */
-.token.type { color: #1aa67f; font-weight:700; }      /* darker teal for types */
-.token.classname { color: #1aa67f; font-weight:700; }  /* darker teal for class/struct names */
-.token.namespace { color: #1aa67f; }                   /* darker teal for namespace */
+/* Cyber Gallery - FIXED */
+.cyber-gallery {
+    background: rgba(10,10,15,0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(151,117,250,0.3);
+    box-shadow: 0 0 40px rgba(151,117,250,0.2);
+}
 
-/* Bottom Image Preview */
-#image-preview {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100%);
-    max-width: 90%;
-    max-height: 40%;
-    border-radius: 16px;
-    box-shadow: 0 0 50px rgba(151,117,250,0.5);
-    background: rgba(20,20,35,0.95);
-    z-index: 10000;
-    opacity: 0;
-    transition: 0.4s ease;
-    pointer-events: none;
+.gallery-viewport { 
+    position: relative; 
+    height: 520px; 
+    background: #000; 
+    overflow: hidden; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-media-active { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; /* Fixed cropping */
+    display: block;
+}
+
+.gallery-btn {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    width: 50px; 
+    height: 50px; 
+    background: rgba(0,0,0,0.7);
+    border: none; 
+    color: var(--cyan); 
+    font-size: 32px; 
+    border-radius: 50%;
+    cursor: pointer; 
+    z-index: 10; 
+    backdrop-filter: blur(6px);
+    transition: all 0.3s;
+}
+
+.gallery-btn:hover { 
+    background: var(--cyan); 
+    color: #000; 
+}
+
+.gallery-btn.prev { left: 20px; }
+.gallery-btn.next { right: 20px; }
+
+.gallery-fullscreen {
+    position: absolute; 
+    bottom: 16px; 
+    right: 16px;
+    background: rgba(0,0,0,0.7); 
+    color: #fff; 
+    border: none;
+    width: 44px; 
+    height: 44px; 
+    border-radius: 8px; 
+    font-size: 20px;
+    cursor: pointer; 
+    backdrop-filter: blur(6px);
+    z-index: 11;
+}
+
+.gallery-fullscreen.active::after {
+    content: "✕";
+    font-size: 24px;
+}
+
+.gallery-thumbnails {
+    display: flex; 
+    gap: 10px; 
+    padding: 20px; 
+    overflow-x: auto;
+    background: linear-gradient(to top, rgba(7,7,10,0.95), transparent);
+}
+
+.thumb {
+    width: 110px; 
+    height: 70px; 
+    background-size: cover; 
+    background-position: center;
+    border-radius: 8px; 
+    cursor: pointer; 
+    opacity: 0.6; 
+    transition: all 0.3s;
+    border: 2px solid transparent; 
+    flex-shrink: 0;
+}
+
+.thumb.active, .thumb:hover { 
+    opacity: 1; 
+    border-color: var(--cyan); 
+    box-shadow: 0 0 20px rgba(79,220,237,0.5); 
+}
+
+/* Fullscreen styles */
+:fullscreen .gallery-viewport,
+:-webkit-full-screen .gallery-viewport,
+:-moz-full-screen .gallery-viewport {
+    height: 100vh !important;
+    width: 100vw !important;
+}
+
+:fullscreen .gallery-media-active,
+:-webkit-full-screen .gallery-media-active {
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
 }
 
 /* Responsive */
 @media(max-width: 1200px) {
-    .project-detail-container {
-        flex-direction: column;
-        padding: 50px 20px;
+    .project-detail-container { 
+        flex-direction: column; 
+        padding: 100px 20px 60px; 
+        gap: 40px;
     }
-    .project-sidebar { flex: 1 1 100%; }
+    .project-sidebar { 
+        flex: 1 1 100%; 
+    }
+    .gallery-viewport { 
+        height: 400px; 
+    }
+}
+
+@media(max-width: 768px) {
+    .project-main, .project-sidebar {
+        padding: 30px;
+    }
+    .gallery-viewport {
+        height: 300px;
+    }
+    .gallery-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 28px;
+    }
 }
 </style>
 </head>
-
 <body>
 
-<!-- MATRIX RAIN BACKGROUND -->
 <canvas id="matrix-canvas"></canvas>
+<div id="cursor"></div>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">Nobe Mol</div>
+        <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 
 <div class="loading-screen">
     Loading project <strong id="loading-title">…</strong>
@@ -303,7 +356,7 @@ body {
         <div id="image-gallery"></div>
 
         <h3>Key Features</h3>
-        <ul id="feature-list"></ul>
+        <ul id="feature-list" style="color:#b0b0b0; padding-left:30px; margin:20px 0;"></ul>
 
         <div class="button-group">
             <a href="index.html#projects" class="btn-small">Back to Projects</a>
@@ -320,11 +373,63 @@ body {
     </div>
 </div>
 
-<!-- Bottom Preview -->
-<div id="image-preview"><img src="" alt="Preview"></div>
-
 <script>
-/* --- YOUR ORIGINAL LOADING SCRIPT --- */
+// === MATRIX RAIN + CURSOR (same as index.html) ===
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = innerWidth; canvas.height = innerHeight;
+
+const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const fontSize = 16;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * Math.max(1, Math.floor(canvas.height / fontSize))));
+const gradientStops = ['#39ff14', '#08f7fe', '#9775fa'];
+
+function hexToRgb(hex) { const m = hex.replace('#',''); return [parseInt(m.substr(0,2),16), parseInt(m.substr(2,4),16), parseInt(m.substr(4,6),16)]; }
+function lerp(a,b,t) { return a + (b-a)*t; }
+function lerpColor(c1,c2,t) { return [Math.round(lerp(c1[0],c2[0],t)), Math.round(lerp(c1[1],c2[1],t)), Math.round(lerp(c1[2],c2[2],t))]; }
+function rgbToCss(rgb) { return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`; }
+const stopRgbs = gradientStops.map(hexToRgb);
+
+function getColorForColumn(i) {
+    const t = i / Math.max(1, drops.length - 1);
+    const segments = stopRgbs.length - 1;
+    const segIndex = Math.floor(t * segments);
+    const localT = (t * segments) - segIndex;
+    const c1 = stopRgbs[segIndex];
+    const c2 = stopRgbs[Math.min(segIndex + 1, stopRgbs.length - 1)];
+    return rgbToCss(lerpColor(c1, c2, localT));
+}
+
+function draw() {
+    ctx.fillStyle = 'rgba(10,10,15,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px Fira Code';
+    for (let i = 0; i < drops.length; i++) {
+        ctx.fillStyle = getColorForColumn(i);
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+setInterval(draw, 40);
+
+window.addEventListener('resize', () => {
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = new Array(columns).fill(0).map((_, i) => drops[i] ?? 0);
+});
+
+// Custom cursor
+document.addEventListener('mousemove', e => {
+    document.getElementById('cursor').style.left = e.clientX + 'px';
+    document.getElementById('cursor').style.top = e.clientY + 'px';
+});
+
+// === PROJECT LOADER ===
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 const loadingTitle = document.getElementById("loading-title");
@@ -333,14 +438,13 @@ if (!projectId) {
     loadingTitle.innerHTML = "<span style='color:#e74c3c'>No project specified</span>";
     throw new Error("Project ID missing");
 }
-
 loadingTitle.textContent = projectId.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
 fetch("projects.json")
     .then(r => r.json())
     .then(projects => {
         const project = projects.find(p => p.id.toLowerCase() === projectId.toLowerCase());
-        if (!project) throw new Error(`Project "${projectId}" not found in projects.json`);
+        if (!project) throw new Error(`Project "${projectId}" not found`);
 
         document.querySelector(".loading-screen").remove();
         document.getElementById("project-content").style.display = "flex";
@@ -350,230 +454,156 @@ fetch("projects.json")
         document.getElementById("project-description").textContent = project.description || "No description provided.";
 
         const infoContainer = document.getElementById("project-information");
-        infoContainer.innerHTML = "";
-        if (Array.isArray(project.information)) {
-            project.information.forEach(info => {
-                const p = document.createElement("p");
-                p.textContent = info;
-                infoContainer.appendChild(p);
-            });
-        }
+        (project.information || []).forEach(info => {
+            const p = document.createElement("p"); p.textContent = info; infoContainer.appendChild(p);
+        });
 
-        const sections = [
-            { id: "language-container", key: "languages", className: "language-tag" },
-            { id: "tag-container", key: "tags", className: "tag" }
-        ];
-
-        sections.forEach(({ id, key, className }) => {
-            const container = document.getElementById(id);
+        ["languages", "tags"].forEach(key => {
+            const container = document.getElementById(key === "languages" ? "language-container" : "tag-container");
             container.innerHTML = "";
             (project[key] || []).forEach(item => {
                 const span = document.createElement("span");
-                span.className = className;
+                span.className = key === "languages" ? "language-tag" : "tag";
                 span.textContent = item;
                 container.appendChild(span);
             });
         });
 
         const featureList = document.getElementById("feature-list");
-        featureList.innerHTML = "";
-        (project.features || []).forEach(f => {
-            const li = document.createElement("li");
-            li.textContent = f;
-            featureList.appendChild(li);
+        (project.features || []).forEach(f => { 
+            const li = document.createElement("li"); 
+            li.textContent = f; 
+            featureList.appendChild(li); 
         });
 
+        // === GALLERY - FULLY FIXED ===
         const gallery = document.getElementById("image-gallery");
-        gallery.innerHTML = "";
-        (project.images || []).forEach(src => {
-            let element;
-            if (/\.(mp4)$/i.test(src)) {
-                element = document.createElement("video");
-                element.src = src;
-                element.controls = true;
-            } else {
-                element = document.createElement("img");
-                element.src = src;
-                element.alt = project.title;
-                element.loading = "lazy";
+        gallery.innerHTML = '';
+
+        if (!project.images || project.images.length === 0) {
+            gallery.innerHTML = '<p style="color:#888; font-style:italic; margin:30px 0;">No media available for this project.</p>';
+        } else {
+            gallery.innerHTML = `
+                <div class="cyber-gallery">
+                    <div class="gallery-viewport" id="gallery-viewport">
+                        <button class="gallery-btn prev" aria-label="Previous">‹</button>
+                        <button class="gallery-btn next" aria-label="Next">›</button>
+                        <button class="gallery-fullscreen" id="fs-btn" aria-label="Toggle Fullscreen">⛶</button>
+                        <div class="gallery-media-container" id="media-container"></div>
+                    </div>
+                    <div class="gallery-thumbnails" id="gallery-thumbs"></div>
+                </div>
+            `;
+
+            const viewport = document.getElementById('gallery-viewport');
+            const mediaContainer = document.getElementById('media-container');
+            const thumbsContainer = document.getElementById('gallery-thumbs');
+            const prevBtn = viewport.querySelector('.prev');
+            const nextBtn = viewport.querySelector('.next');
+            const fsBtn = document.getElementById('fs-btn');
+
+            let currentIndex = 0;
+            const mediaItems = project.images.map(src => ({ src, isVideo: /\.(mp4|webm|ogg)$/i.test(src) }));
+
+            function createMedia(index) {
+                const item = mediaItems[index];
+                const el = item.isVideo ? document.createElement('video') : document.createElement('img');
+                el.className = 'gallery-media-active';
+                if (item.isVideo) { 
+                    el.src = item.src; 
+                    el.controls = true; 
+                    el.playsInline = true; 
+                    el.muted = false;
+                } else { 
+                    el.src = item.src; 
+                    el.alt = `${project.title} - ${index + 1}`; 
+                    el.loading = 'lazy'; 
+                }
+                return el;
             }
-            element.className = "project-image";
-            gallery.appendChild(element);
-        });
 
-        const previewContainer = document.getElementById("image-preview");
-        const previewImage = previewContainer.querySelector("img");
+            function showMedia(index) {
+                currentIndex = (index + mediaItems.length) % mediaItems.length;
+                mediaContainer.innerHTML = '';
+                const media = createMedia(currentIndex);
+                mediaContainer.appendChild(media);
+                thumbsContainer.querySelectorAll('.thumb').forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+                if (mediaItems[currentIndex].isVideo) media.play().catch(() => {});
+            }
 
-        gallery.querySelectorAll(".project-image").forEach(img => {
-            img.addEventListener("mouseenter", () => {
-                previewImage.src = img.src;
-                previewContainer.style.transform = "translateX(-50%) translateY(0)";
-                previewContainer.style.opacity = "1";
+            // Thumbnails
+            mediaItems.forEach((item, i) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'thumb';
+                if (i === 0) thumb.classList.add('active');
+
+                if (item.isVideo) {
+                    thumb.style.background = '#000';
+                    thumb.innerHTML = '<div style="color:#666;font-size:12px;text-align:center;padding-top:25px;">Video</div>';
+                    thumb.style.backgroundImage = 'linear-gradient(45deg, #333 25%, transparent 25%), linear-gradient(-45deg, #333 25%, transparent 25%)';
+                    thumb.style.backgroundSize = '20px 20px';
+                    thumb.style.backgroundPosition = '0 0, 10px 10px';
+                } else {
+                    thumb.style.backgroundImage = `url(${item.src})`;
+                }
+
+                thumb.addEventListener('click', () => showMedia(i));
+                thumbsContainer.appendChild(thumb);
             });
-            img.addEventListener("mouseleave", () => {
-                previewContainer.style.transform = "translateX(-50%) translateY(100%)";
-                previewContainer.style.opacity = "0";
-            });
-        });
 
+            prevBtn.onclick = () => showMedia(currentIndex - 1);
+            nextBtn.onclick = () => showMedia(currentIndex + 1);
+
+            // FULLSCREEN TOGGLE - NOW WORKS PROPERLY
+            fsBtn.onclick = () => {
+                if (!document.fullscreenElement) {
+                    viewport.requestFullscreen?.() || viewport.webkitRequestFullscreen?.();
+                    fsBtn.classList.add('active');
+                } else {
+                    document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+                }
+            };
+
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    fsBtn.classList.remove('active');
+                }
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft') showMedia(currentIndex - 1);
+                if (e.key === 'ArrowRight') showMedia(currentIndex + 1);
+                if (e.key === 'Escape' && document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
+
+            let touchStartX = 0;
+            viewport.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, { passive: true });
+            viewport.addEventListener('touchend', e => {
+                const delta = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(delta) > 50) {
+                    delta > 0 ? showMedia(currentIndex - 1) : showMedia(currentIndex + 1);
+                }
+            }, { passive: true });
+
+            showMedia(0);
+        }
+
+        // Code spotlight
         const codeBox = document.getElementById("code-snippet");
         if (project.code && project.code.length) {
             const lines = Array.isArray(project.code) ? project.code : project.code.split("\n");
-            const syntax = (project.syntax || project.syntaxType || '').toLowerCase();
-
-            const keywordSets = {
-                csharp: new Set((`abstract as base bool break byte case catch char checked class const continue decimal default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long namespace new null object operator out override params private protected public readonly ref return sbyte sealed short sizeof stackalloc static string struct switch this throw true try typeof uint ulong unchecked unsafe ushort using virtual void volatile while async await var`).split(/\s+/)),
-                cpp: new Set((`alignas alignof asm auto bool break case catch char class const continue decltype default delete do double dynamic_cast else enum explicit export extern false float for friend goto if inline int long mutable namespace new noexcept nullptr operator private protected public register reinterpret_cast return short signed sizeof static_cast static struct switch template this throw true try typedef typeid typename union unsigned using virtual void volatile while`).split(/\s+/)),
-                asm: new Set((`mov add sub inc dec cmp jmp je jne jl jg call ret push pop db dw dd section segment org end nop xor and or not shl shr loop cmp test lea stos lods`.split(/\s+/)) )
-            };
-
-            const primitiveTypes = new Set(['int','float','double','char','short','long','bool','void','string','size_t','auto','unsigned','signed']);
-
-            function escapeHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-            function isIdentifierChar(ch){ return /[A-Za-z0-9_:\.]/.test(ch); }
-
-            function highlightLine(line){
-                // prepare a parsing-friendly string: unescape common HTML entities
-                const s = line.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
-                let i = 0, out = '';
-                const trimmed = s.trimStart();
-
-                // whole-line ASM comment (only if syntax is ASM)
-                if (syntax.includes('asm') && trimmed.startsWith(';')){
-                    return `<span class="token comment">${escapeHtml(s)}</span>`;
-                }
-
-                // directives (#include, #define, etc.) — highlight directive and library
-                if (trimmed.startsWith('#')){
-                    const leading = s.slice(0, s.indexOf('#'));
-                    const match = trimmed.match(/^#\s*(\w+)(?:\s+(.*))?/);
-                    if (match){
-                        const directive = match[1];
-                        const rest = match[2] || '';
-                        // highlight includes specially
-                        const incMatch = rest.match(/^(?:include)\s*[<\"]([^>\"]+)[>\"]/i);
-                        if (incMatch){
-                            const lib = escapeHtml(incMatch[1]);
-                            const before = rest.slice(0, rest.indexOf(incMatch[0]));
-                            return `${escapeHtml(leading)}<span class="token directive">#${escapeHtml(directive)}</span> ${escapeHtml(before)}include <span class=\"token library\">${lib}</span>`;
-                        }
-                        return `${escapeHtml(leading)}<span class="token directive">#${escapeHtml(directive)}</span> ${escapeHtml(rest)}`;
-                    }
-                }
-
-                // token loop (operate on unescaped `s` for parsing, escape when outputting)
-                let lastTokenType = null;
-                while(i < s.length){
-                    const ch = s[i];
-                    // ASM inline/line comment starting with ';' (only for asm syntax)
-                    if (syntax.includes('asm') && ch === ';'){
-                        const rest = escapeHtml(s.slice(i));
-                        out += `<span class="token comment">${rest}</span>`; break;
-                    }
-                    // C-style single-line comment
-                    if (ch === '/' && s[i+1] === '/'){
-                        const rest = escapeHtml(s.slice(i));
-                        out += `<span class="token comment">${rest}</span>`; break;
-                    }
-                    // block comment
-                    if (ch === '/' && s[i+1] === '*'){
-                        const end = s.indexOf('*/', i+2);
-                        if (end !== -1){
-                            const chunk = escapeHtml(s.slice(i, end+2));
-                            out += `<span class="token comment">${chunk}</span>`; i = end+2; continue;
-                        } else { const rest = escapeHtml(s.slice(i)); out += `<span class="token comment">${rest}</span>`; break; }
-                    }
-                    // strings
-                    if (ch === '"' || ch === "'"){
-                        const quote = ch; let j = i+1; let esc = false;
-                        while(j < s.length){ if (!esc && s[j] === quote){ j++; break; } if (!esc && s[j] === '\\'){ esc = true; j++; continue; } esc = false; j++; }
-                        out += `<span class=\"token string\">${escapeHtml(s.slice(i,j))}</span>`; i = j; lastTokenType = 'string'; continue;
-                    }
-                    // numbers
-                    if (/\d/.test(ch)){
-                        const m = s.slice(i).match(/^\d+(?:\.\d+)?/);
-                        if (m){ out += `<span class=\"token number\">${escapeHtml(m[0])}</span>`; i += m[0].length; lastTokenType = 'number'; continue; }
-                    }
-                    // identifiers (names, namespaces, templates)
-                    if (/[A-Za-z_]/.test(ch)){
-                        let j = i+1; while(j < s.length && isIdentifierChar(s[j])) j++;
-                        const ident = s.slice(i,j);
-                        const esc = escapeHtml(ident);
-                        const ks = (syntax.includes('cpp')||syntax.includes('c++') ? keywordSets.cpp : (syntax.includes('asm') ? keywordSets.asm : keywordSets.csharp));
-
-                        // handle dotted qualified names like System.Collections.Generic
-                        if (ident.includes('.')){
-                            const parts = ident.split('.');
-                            out += parts.map(p => `<span class=\"token namespace\">${escapeHtml(p)}</span>`).join('.');
-                            i = j; lastTokenType = 'namespace'; continue;
-                        }
-
-                        // detect qualified names like std::vector or MyNamespace::MyClass
-                        if (ident.includes('::')){
-                            const parts = ident.split('::');
-                            const ns = parts.slice(0,-1).join('::');
-                            const nm = parts[parts.length-1];
-                            out += `<span class=\"token namespace\">${escapeHtml(ns)}</span>::` + `<span class=\"token type\">${escapeHtml(nm)}</span>`;
-                            i = j; lastTokenType = 'type'; continue;
-                        }
-
-                        // primitives (int/float/string/etc.) take precedence
-                        const lowerIdent = ident.toLowerCase();
-                        if (primitiveTypes.has(lowerIdent)){
-                            out += `<span class=\"token primitive\">${esc}</span>`; i = j; lastTokenType = 'primitive'; continue;
-                        }
-                        // keywords
-                        if (ks && ks.has(ident)){
-                            out += `<span class=\"token keyword\">${esc}</span>`; i = j; lastTokenType = 'keyword'; continue;
-                        }
-
-                        // detect template usage like vector<int> — allow spaces between name and '<'
-                        let m = j; while(m < s.length && /\s/.test(s[m])) m++;
-                        if (s[m] === '<'){
-                            // avoid false positive for comparisons like 'j < 9' where identifier is a single-letter variable
-                            if (!(ident.length === 1 && /[a-z]/.test(ident))){
-                                // find matching > roughly (not full parser)
-                                let k = m+1, depth = 1; while(k < s.length && depth > 0){ if (s[k] === '<') depth++; else if (s[k] === '>') depth--; k++; }
-                                const tplRaw = s.slice(i, k);
-                                // separate name and template args visually
-                                const nameMatch = tplRaw.match(/^([^<\s]+)/);
-                                const name = nameMatch ? nameMatch[1] : tplRaw;
-                                const args = tplRaw.slice(name.length);
-                                out += `<span class=\"token type\">${escapeHtml(name)}</span><span class=\"token template\">${escapeHtml(args)}</span>`;
-                                i = k; lastTokenType = 'type'; continue;
-                            }
-                        }
-
-                        // function detection: next non-space char is '('
-                        let k = j; while(k < s.length && /\s/.test(s[k])) k++; const nextChar = s[k] || '';
-                        if (nextChar === '('){ out += `<span class=\"token function\">${esc}</span>`; i = j; lastTokenType = 'function'; continue; }
-
-                        // capitalized names likely types/classes
-                        if (/^[A-Z][A-Za-z0-9_]*$/.test(ident)){
-                            out += `<span class=\"token classname\">${esc}</span>`; i = j; lastTokenType = 'classname'; continue;
-                        }
-
-                        // fallback: namespace-like lower-case (std), or plain identifier
-                        if (ident === 'std' || ident === 'std::'){
-                            out += `<span class=\"token namespace\">${esc}</span>`; i = j; lastTokenType = 'namespace'; continue;
-                        }
-
-                        out += esc; i = j; lastTokenType = 'ident'; continue;
-                    }
-                    // operators / punctuation
-                    out += escapeHtml(s[i]); i++; if (!/\s/.test(ch)) lastTokenType = 'op';
-                }
-                return out || '&nbsp;';
-            }
-
-            codeBox.innerHTML = lines.map(l => `<span>${highlightLine(l) || '&nbsp;'}</span>`).join('');
+            codeBox.innerHTML = lines.map(line => {
+                const escaped = line.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                return `<span>${escaped || "&nbsp;"}</span>`;
+            }).join("");
         } else {
             codeBox.innerHTML = '<span style="color:#8b949e;font-style:italic;">No code snippet available</span>';
         }
 
         if (project.codeCaption) {
-            document.getElementById("code-spotlight-title").textContent =
-                `Code Spotlight – ${project.codeCaption}`;
+            document.getElementById("code-spotlight-title").textContent = `Code Spotlight – ${project.codeCaption}`;
         }
 
         const githubLink = document.getElementById("github-link");
@@ -585,68 +615,8 @@ fetch("projects.json")
         }
     })
     .catch(err => {
-        document.querySelector(".loading-screen").innerHTML =
-            `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
+        document.querySelector(".loading-screen").innerHTML = `<strong style="color:#e74c3c;">Error:</strong> ${err.message}`;
     });
 </script>
-
-<script>
-// --- FIXED MATRIX RAIN (same colors & style as project page) ---
-const canvas = document.getElementById('matrix-canvas');
-const ctx = canvas.getContext('2d');
-
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
-// Matrix characters identical on both pages
-const chars =
-"01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ"+
-"マミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
-
-// Identical size & spacing
-const fontSize = 16;
-let columns = canvas.width / fontSize;
-
-// Identical falling drops
-let drops = Array(Math.floor(columns)).fill(1);
-
-// MAIN DRAW LOOP
-function draw() {
-    // Match opacity/fade exactly
-    ctx.fillStyle = "rgba(10, 10, 15, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // EXACT green color from your other page
-    ctx.fillStyle = "#39ff14";
-    ctx.font = fontSize + "px Fira Code";
-
-    for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
-
-        drops[i]++;
-    }
-}
-
-// Identical frame speed
-setInterval(draw, 40);
-
-// Resize handling — keep matrix consistent across both pages
-window.addEventListener("resize", () => {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-    columns = canvas.width / fontSize;
-    drops = Array(Math.floor(columns)).fill(1);
-});
-</script>
-
-
-setInterval(draw, 40);
-</script>
-
 </body>
 </html>
