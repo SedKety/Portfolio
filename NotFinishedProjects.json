@@ -18,22 +18,22 @@
             "Custom input/output system",
             "Custom dialogue system",
             "Randomly generated dungeons",
-            "Random enemy names/properties"
+            "Random enemy names/properties" 
         ],
-        "thumbnail": "Images/Avonturio/MainScreen.png",
+        "thumbnail": "Images/Avonturio/MainScreen.png",  
         "images": ["Images/Avonturio/MainScreen.png", "Images/Avonturio/Dungeon.png", "Images/Avonturio/Dialogue.png"],
         "codeCaption": "InputManager.cs - Custom input system",
-  "code": [
+  "code": [  
 "using System;",
 "using System.Collections.Generic;",
-"using System.Drawing;",
+"using System.Drawing;",  
 "using System.Linq;",
 "using System.Security.Cryptography.X509Certificates;",
 "using System.Text;",
 "using System.Threading.Tasks;",
 "",
 "namespace Dev_les_Avonturio",
-"{",
+"{", 
 "    public static class InputManager",
 "    {",
 "        public static List<InputAction> inputActions = new List<InputAction>();",
